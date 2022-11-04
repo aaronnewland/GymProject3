@@ -1,0 +1,450 @@
+
+Gym Manager running...
+
+a is an invalid command!
+p is an invalid command!
+pc is an invalid command!
+pn is an invalid command!
+pd is an invalid command!
+pf is an invalid command!
+Member database is empty!
+Member database is empty!
+Member database is empty!
+Member database is empty!
+Member database is empty!
+AA is an invalid command!
+r is an invalid command!
+RR is an invalid command!
+s is an invalid command!
+c is an invalid command!
+d is an invalid command!
+cg is an invalid command!
+dg is an invalid command!
+ls is an invalid command!
+lm is an invalid command!
+SS is an invalid command!
+CC is an invalid command!
+DD is an invalid command!
+Fitness class schedule is empty.
+
+-Fitness classes loaded-
+PILATES - JENNIFER, 9:30, BRIDGEWATER
+SPINNING - JENNIFER, 14:00, PISCATAWAY
+CARDIO - JENNIFER, 18:30, SOMERVILLE
+PILATES - KIM, 9:30, FRANKLIN
+SPINNING - KIM, 14:00, FRANKLIN
+CARDIO - KIM, 18:30, PISCATAWAY
+PILATES - DAVIS, 9:30, PISCATAWAY
+PILATES - DAVIS, 14:00, EDISON
+CARDIO - DAVIS, 18:30, BRIDGEWATER
+SPINNING - DENISE, 9:30, BRIDGEWATER
+CARDIO - DENISE, 14:00, SOMERVILLE
+SPINNING - DENISE, 18:30, EDISON
+SPINNING - EMMA, 9:30, FRANKLIN
+PILATES - EMMA, 14:00, EDISON
+CARDIO - EMMA, 18:30, EDISON
+-end of class list.
+
+DOB 9/2/2022: must be 18 or older to join!
+DOB 12/2/2022: cannot be today or a future date!
+DOB 12/20/2004: must be 18 or older to join!
+DOB 2/29/2003: invalid calendar date!
+DOB 4/31/2003: invalid calendar date!
+DOB 13/31/2003: invalid calendar date!
+DOB 3/32/2003: invalid calendar date!
+DOB -1/31/2003: invalid calendar date!
+
+-list of members loaded-
+John Doe, DOB: 1/20/2004, Membership expires 2/15/2023, Location: BRIDGEWATER, 08807, SOMERSET
+John Doe, DOB: 1/20/2003, Membership expired 3/30/2021, Location: BRIDGEWATER, 08807, SOMERSET
+Jane Doe, DOB: 5/1/1996, Membership expires 6/20/2023, Location: EDISON, 08837, MIDDLESEX
+April March, DOB: 3/31/1990, Membership expires 12/30/2022, Location: PISCATAWAY, 08854, MIDDLESEX
+Mary Lindsey, DOB: 12/1/1989, Membership expires 5/31/2023, Location: FRANKLIN, 08873, SOMERSET
+Duke Ellington, DOB: 2/29/2000, Membership expires 4/30/2023, Location: FRANKLIN, 08873, SOMERSET
+Roy Brooks, DOB: 8/8/1977, Membership expired 9/30/2020, Location: SOMERVILLE, 08876, SOMERSET
+Roy Brooks, DOB: 9/9/1977, Membership expires 10/30/2022, Location: SOMERVILLE, 08876, SOMERSET
+Kate Lindsey, DOB: 7/15/1977, Membership expires 8/31/2023, Location: SOMERVILLE, 08876, SOMERSET
+Carl Brown, DOB: 10/7/1991, Membership expires 3/31/2023, Location: PISCATAWAY, 08854, MIDDLESEX
+Paul Siegel, DOB: 5/1/1999, Membership expired 1/31/2022, Location: EDISON, 08837, MIDDLESEX
+Bill Scanlan, DOB: 5/1/1999, Membership expires 1/31/2023, Location: EDISON, 08837, MIDDLESEX
+-end of list-
+
+John Doe is already in the database.
+john doe is already in the database.
+ABC: invalid location!
+
+-list of members sorted by county and zipcode-
+Jane Doe, DOB: 5/1/1996, Membership expires 6/20/2023, Location: EDISON, 08837, MIDDLESEX
+Paul Siegel, DOB: 5/1/1999, Membership expired 1/31/2022, Location: EDISON, 08837, MIDDLESEX
+Bill Scanlan, DOB: 5/1/1999, Membership expires 1/31/2023, Location: EDISON, 08837, MIDDLESEX
+April March, DOB: 3/31/1990, Membership expires 12/30/2022, Location: PISCATAWAY, 08854, MIDDLESEX
+Carl Brown, DOB: 10/7/1991, Membership expires 3/31/2023, Location: PISCATAWAY, 08854, MIDDLESEX
+John Doe, DOB: 1/20/2003, Membership expired 3/30/2021, Location: BRIDGEWATER, 08807, SOMERSET
+John Doe, DOB: 1/20/2004, Membership expires 2/15/2023, Location: BRIDGEWATER, 08807, SOMERSET
+Mary Lindsey, DOB: 12/1/1989, Membership expires 5/31/2023, Location: FRANKLIN, 08873, SOMERSET
+Duke Ellington, DOB: 2/29/2000, Membership expires 4/30/2023, Location: FRANKLIN, 08873, SOMERSET
+Roy Brooks, DOB: 9/9/1977, Membership expires 10/30/2022, Location: SOMERVILLE, 08876, SOMERSET
+Kate Lindsey, DOB: 7/15/1977, Membership expires 8/31/2023, Location: SOMERVILLE, 08876, SOMERSET
+Roy Brooks, DOB: 8/8/1977, Membership expired 9/30/2020, Location: SOMERVILLE, 08876, SOMERSET
+-end of list-
+
+
+-list of members sorted by last name, and first name-
+Roy Brooks, DOB: 9/9/1977, Membership expires 10/30/2022, Location: SOMERVILLE, 08876, SOMERSET
+Roy Brooks, DOB: 8/8/1977, Membership expired 9/30/2020, Location: SOMERVILLE, 08876, SOMERSET
+Carl Brown, DOB: 10/7/1991, Membership expires 3/31/2023, Location: PISCATAWAY, 08854, MIDDLESEX
+Jane Doe, DOB: 5/1/1996, Membership expires 6/20/2023, Location: EDISON, 08837, MIDDLESEX
+John Doe, DOB: 1/20/2003, Membership expired 3/30/2021, Location: BRIDGEWATER, 08807, SOMERSET
+John Doe, DOB: 1/20/2004, Membership expires 2/15/2023, Location: BRIDGEWATER, 08807, SOMERSET
+Duke Ellington, DOB: 2/29/2000, Membership expires 4/30/2023, Location: FRANKLIN, 08873, SOMERSET
+Kate Lindsey, DOB: 7/15/1977, Membership expires 8/31/2023, Location: SOMERVILLE, 08876, SOMERSET
+Mary Lindsey, DOB: 12/1/1989, Membership expires 5/31/2023, Location: FRANKLIN, 08873, SOMERSET
+April March, DOB: 3/31/1990, Membership expires 12/30/2022, Location: PISCATAWAY, 08854, MIDDLESEX
+Bill Scanlan, DOB: 5/1/1999, Membership expires 1/31/2023, Location: EDISON, 08837, MIDDLESEX
+Paul Siegel, DOB: 5/1/1999, Membership expired 1/31/2022, Location: EDISON, 08837, MIDDLESEX
+-end of list-
+
+
+-list of members sorted by membership expiration date-
+Roy Brooks, DOB: 8/8/1977, Membership expired 9/30/2020, Location: SOMERVILLE, 08876, SOMERSET
+John Doe, DOB: 1/20/2003, Membership expired 3/30/2021, Location: BRIDGEWATER, 08807, SOMERSET
+Paul Siegel, DOB: 5/1/1999, Membership expired 1/31/2022, Location: EDISON, 08837, MIDDLESEX
+Roy Brooks, DOB: 9/9/1977, Membership expires 10/30/2022, Location: SOMERVILLE, 08876, SOMERSET
+April March, DOB: 3/31/1990, Membership expires 12/30/2022, Location: PISCATAWAY, 08854, MIDDLESEX
+Bill Scanlan, DOB: 5/1/1999, Membership expires 1/31/2023, Location: EDISON, 08837, MIDDLESEX
+John Doe, DOB: 1/20/2004, Membership expires 2/15/2023, Location: BRIDGEWATER, 08807, SOMERSET
+Carl Brown, DOB: 10/7/1991, Membership expires 3/31/2023, Location: PISCATAWAY, 08854, MIDDLESEX
+Duke Ellington, DOB: 2/29/2000, Membership expires 4/30/2023, Location: FRANKLIN, 08873, SOMERSET
+Mary Lindsey, DOB: 12/1/1989, Membership expires 5/31/2023, Location: FRANKLIN, 08873, SOMERSET
+Jane Doe, DOB: 5/1/1996, Membership expires 6/20/2023, Location: EDISON, 08837, MIDDLESEX
+Kate Lindsey, DOB: 7/15/1977, Membership expires 8/31/2023, Location: SOMERVILLE, 08876, SOMERSET
+-end of list-
+
+Paul Siegel removed.
+
+-list of members-
+Roy Brooks, DOB: 8/8/1977, Membership expired 9/30/2020, Location: SOMERVILLE, 08876, SOMERSET
+John Doe, DOB: 1/20/2003, Membership expired 3/30/2021, Location: BRIDGEWATER, 08807, SOMERSET
+Roy Brooks, DOB: 9/9/1977, Membership expires 10/30/2022, Location: SOMERVILLE, 08876, SOMERSET
+April March, DOB: 3/31/1990, Membership expires 12/30/2022, Location: PISCATAWAY, 08854, MIDDLESEX
+Bill Scanlan, DOB: 5/1/1999, Membership expires 1/31/2023, Location: EDISON, 08837, MIDDLESEX
+John Doe, DOB: 1/20/2004, Membership expires 2/15/2023, Location: BRIDGEWATER, 08807, SOMERSET
+Carl Brown, DOB: 10/7/1991, Membership expires 3/31/2023, Location: PISCATAWAY, 08854, MIDDLESEX
+Duke Ellington, DOB: 2/29/2000, Membership expires 4/30/2023, Location: FRANKLIN, 08873, SOMERSET
+Mary Lindsey, DOB: 12/1/1989, Membership expires 5/31/2023, Location: FRANKLIN, 08873, SOMERSET
+Jane Doe, DOB: 5/1/1996, Membership expires 6/20/2023, Location: EDISON, 08837, MIDDLESEX
+Kate Lindsey, DOB: 7/15/1977, Membership expires 8/31/2023, Location: SOMERVILLE, 08876, SOMERSET
+-end of list-
+
+Paul Siegel is not in the database.
+Paul Siegel added.
+
+-list of members sorted by membership expiration date-
+Roy Brooks, DOB: 8/8/1977, Membership expired 9/30/2020, Location: SOMERVILLE, 08876, SOMERSET
+John Doe, DOB: 1/20/2003, Membership expired 3/30/2021, Location: BRIDGEWATER, 08807, SOMERSET
+Roy Brooks, DOB: 9/9/1977, Membership expires 10/30/2022, Location: SOMERVILLE, 08876, SOMERSET
+Paul Siegel, DOB: 6/30/1999, Membership expires 12/28/2022, Location: FRANKLIN, 08873, SOMERSET
+April March, DOB: 3/31/1990, Membership expires 12/30/2022, Location: PISCATAWAY, 08854, MIDDLESEX
+Bill Scanlan, DOB: 5/1/1999, Membership expires 1/31/2023, Location: EDISON, 08837, MIDDLESEX
+John Doe, DOB: 1/20/2004, Membership expires 2/15/2023, Location: BRIDGEWATER, 08807, SOMERSET
+Carl Brown, DOB: 10/7/1991, Membership expires 3/31/2023, Location: PISCATAWAY, 08854, MIDDLESEX
+Duke Ellington, DOB: 2/29/2000, Membership expires 4/30/2023, Location: FRANKLIN, 08873, SOMERSET
+Mary Lindsey, DOB: 12/1/1989, Membership expires 5/31/2023, Location: FRANKLIN, 08873, SOMERSET
+Jane Doe, DOB: 5/1/1996, Membership expires 6/20/2023, Location: EDISON, 08837, MIDDLESEX
+Kate Lindsey, DOB: 7/15/1977, Membership expires 8/31/2023, Location: SOMERVILLE, 08876, SOMERSET
+-end of list-
+
+DOB 6/30/2005: must be 18 or older to join!
+BBB: invalid location!
+Jerry Brown added.
+DOB 9/21/2009: must be 18 or older to join!
+bridge: invalid location!
+Jonnathan Wei added.
+
+-list of members sorted by last name, and first name-
+Roy Brooks, DOB: 8/8/1977, Membership expired 9/30/2020, Location: SOMERVILLE, 08876, SOMERSET
+Roy Brooks, DOB: 9/9/1977, Membership expires 10/30/2022, Location: SOMERVILLE, 08876, SOMERSET
+Carl Brown, DOB: 10/7/1991, Membership expires 3/31/2023, Location: PISCATAWAY, 08854, MIDDLESEX
+Jerry Brown, DOB: 6/30/1979, Membership expires 12/28/2022, Location: EDISON, 08837, MIDDLESEX, (Family) guest-pass remaining: 1
+Jane Doe, DOB: 5/1/1996, Membership expires 6/20/2023, Location: EDISON, 08837, MIDDLESEX
+John Doe, DOB: 1/20/2004, Membership expires 2/15/2023, Location: BRIDGEWATER, 08807, SOMERSET
+John Doe, DOB: 1/20/2003, Membership expired 3/30/2021, Location: BRIDGEWATER, 08807, SOMERSET
+Duke Ellington, DOB: 2/29/2000, Membership expires 4/30/2023, Location: FRANKLIN, 08873, SOMERSET
+Kate Lindsey, DOB: 7/15/1977, Membership expires 8/31/2023, Location: SOMERVILLE, 08876, SOMERSET
+Mary Lindsey, DOB: 12/1/1989, Membership expires 5/31/2023, Location: FRANKLIN, 08873, SOMERSET
+April March, DOB: 3/31/1990, Membership expires 12/30/2022, Location: PISCATAWAY, 08854, MIDDLESEX
+Bill Scanlan, DOB: 5/1/1999, Membership expires 1/31/2023, Location: EDISON, 08837, MIDDLESEX
+Paul Siegel, DOB: 6/30/1999, Membership expires 12/28/2022, Location: FRANKLIN, 08873, SOMERSET
+Jonnathan Wei, DOB: 9/21/1992, Membership expires 9/28/2023, Location: BRIDGEWATER, 08807, SOMERSET, (Premium) Guess-pass remaining: 3
+-end of list-
+
+DOB 13/8/1977: invalid calendar date!
+Roy Brooks 8/8/1977 membership expired.
+Mary - instructor does not exist.
+Happy Brooks 8/8/1977 is not in the database.
+Mary Lindsey checking in BRIDGEWATER, 08807, SOMERSET - standard membership location restriction.
+Mary Lindsey checked in PILATES - KIM, 9:30, FRANKLIN
+- Participants -
+   Mary Lindsey, DOB: 12/1/1989, Membership expires 5/31/2023, Location: FRANKLIN, 08873, SOMERSET
+
+Mary Lindsey already checked in.
+Time conflict - SPINNING - EMMA, 9:30, FRANKLIN, 08873, SOMERSET
+abc - class does not exist.
+Morristown - invalid location.
+Amy - instructor does not exist.
+DOB 13/1/1996: invalid calendar date!
+Spinning by Davis does not exist at Edison
+Jane Doe checked in PILATES - EMMA, 14:00, EDISON
+- Participants -
+   Jane Doe, DOB: 5/1/1996, Membership expires 6/20/2023, Location: EDISON, 08837, MIDDLESEX
+
+Paul Siegel checked in PILATES - KIM, 9:30, FRANKLIN
+- Participants -
+   Mary Lindsey, DOB: 12/1/1989, Membership expires 5/31/2023, Location: FRANKLIN, 08873, SOMERSET
+   Paul Siegel, DOB: 6/30/1999, Membership expires 12/28/2022, Location: FRANKLIN, 08873, SOMERSET
+
+Bill Scanlan checked in PILATES - EMMA, 14:00, EDISON
+- Participants -
+   Jane Doe, DOB: 5/1/1996, Membership expires 6/20/2023, Location: EDISON, 08837, MIDDLESEX
+   Bill Scanlan, DOB: 5/1/1999, Membership expires 1/31/2023, Location: EDISON, 08837, MIDDLESEX
+
+-Fitness classes-
+PILATES - JENNIFER, 9:30, BRIDGEWATER
+SPINNING - JENNIFER, 14:00, PISCATAWAY
+CARDIO - JENNIFER, 18:30, SOMERVILLE
+PILATES - KIM, 9:30, FRANKLIN
+- Participants -
+   Mary Lindsey, DOB: 12/1/1989, Membership expires 5/31/2023, Location: FRANKLIN, 08873, SOMERSET
+   Paul Siegel, DOB: 6/30/1999, Membership expires 12/28/2022, Location: FRANKLIN, 08873, SOMERSET
+SPINNING - KIM, 14:00, FRANKLIN
+CARDIO - KIM, 18:30, PISCATAWAY
+PILATES - DAVIS, 9:30, PISCATAWAY
+PILATES - DAVIS, 14:00, EDISON
+CARDIO - DAVIS, 18:30, BRIDGEWATER
+SPINNING - DENISE, 9:30, BRIDGEWATER
+CARDIO - DENISE, 14:00, SOMERVILLE
+SPINNING - DENISE, 18:30, EDISON
+SPINNING - EMMA, 9:30, FRANKLIN
+PILATES - EMMA, 14:00, EDISON
+- Participants -
+   Jane Doe, DOB: 5/1/1996, Membership expires 6/20/2023, Location: EDISON, 08837, MIDDLESEX
+   Bill Scanlan, DOB: 5/1/1999, Membership expires 1/31/2023, Location: EDISON, 08837, MIDDLESEX
+CARDIO - EMMA, 18:30, EDISON
+-end of class list.
+
+Jerry Brown checked in PILATES - DAVIS, 9:30, PISCATAWAY
+- Participants -
+   Jerry Brown, DOB: 6/30/1979, Membership expires 12/28/2022, Location: EDISON, 08837, MIDDLESEX, (Family) guest-pass remaining: 1
+
+Jerry Brown already checked in.
+Jonnathan Wei checked in PILATES - DAVIS, 9:30, PISCATAWAY
+- Participants -
+   Jerry Brown, DOB: 6/30/1979, Membership expires 12/28/2022, Location: EDISON, 08837, MIDDLESEX, (Family) guest-pass remaining: 1
+   Jonnathan Wei, DOB: 9/21/1992, Membership expires 9/28/2023, Location: BRIDGEWATER, 08807, SOMERSET, (Premium) Guess-pass remaining: 3
+
+Jonnathan Wei checked in CARDIO - DAVIS, 18:30, BRIDGEWATER
+- Participants -
+   Jonnathan Wei, DOB: 9/21/1992, Membership expires 9/28/2023, Location: BRIDGEWATER, 08807, SOMERSET, (Premium) Guess-pass remaining: 3
+
+Time conflict - PILATES - JENNIFER, 9:30, BRIDGEWATER, 08807, SOMERSET
+Time conflict - PILATES - KIM, 9:30, FRANKLIN, 08873, SOMERSET
+Jerry Brown checked in SPINNING - KIM, 14:00, FRANKLIN
+- Participants -
+   Jerry Brown, DOB: 6/30/1979, Membership expires 12/28/2022, Location: EDISON, 08837, MIDDLESEX, (Family) guest-pass remaining: 1
+
+-Fitness classes-
+PILATES - JENNIFER, 9:30, BRIDGEWATER
+SPINNING - JENNIFER, 14:00, PISCATAWAY
+CARDIO - JENNIFER, 18:30, SOMERVILLE
+PILATES - KIM, 9:30, FRANKLIN
+- Participants -
+   Mary Lindsey, DOB: 12/1/1989, Membership expires 5/31/2023, Location: FRANKLIN, 08873, SOMERSET
+   Paul Siegel, DOB: 6/30/1999, Membership expires 12/28/2022, Location: FRANKLIN, 08873, SOMERSET
+SPINNING - KIM, 14:00, FRANKLIN
+- Participants -
+   Jerry Brown, DOB: 6/30/1979, Membership expires 12/28/2022, Location: EDISON, 08837, MIDDLESEX, (Family) guest-pass remaining: 1
+CARDIO - KIM, 18:30, PISCATAWAY
+PILATES - DAVIS, 9:30, PISCATAWAY
+- Participants -
+   Jerry Brown, DOB: 6/30/1979, Membership expires 12/28/2022, Location: EDISON, 08837, MIDDLESEX, (Family) guest-pass remaining: 1
+   Jonnathan Wei, DOB: 9/21/1992, Membership expires 9/28/2023, Location: BRIDGEWATER, 08807, SOMERSET, (Premium) Guess-pass remaining: 3
+PILATES - DAVIS, 14:00, EDISON
+CARDIO - DAVIS, 18:30, BRIDGEWATER
+- Participants -
+   Jonnathan Wei, DOB: 9/21/1992, Membership expires 9/28/2023, Location: BRIDGEWATER, 08807, SOMERSET, (Premium) Guess-pass remaining: 3
+SPINNING - DENISE, 9:30, BRIDGEWATER
+CARDIO - DENISE, 14:00, SOMERVILLE
+SPINNING - DENISE, 18:30, EDISON
+SPINNING - EMMA, 9:30, FRANKLIN
+PILATES - EMMA, 14:00, EDISON
+- Participants -
+   Jane Doe, DOB: 5/1/1996, Membership expires 6/20/2023, Location: EDISON, 08837, MIDDLESEX
+   Bill Scanlan, DOB: 5/1/1999, Membership expires 1/31/2023, Location: EDISON, 08837, MIDDLESEX
+CARDIO - EMMA, 18:30, EDISON
+-end of class list.
+
+DOB 12/32/1989: invalid calendar date!
+abc - class does not exist.
+Mary - instructor does not exist.
+morristown - invalid location.
+Pilates by Jennifer does not exist at FRANKLIN
+Mary Lindsey done with the class.
+Mary Lindsey did not check in.
+Jerry Brown done with the class.
+Jerry Brown did not check in.
+Jonnathan Wei 10/21/1992 is not in the database.
+Jonnathan Wei done with the class.
+Jonnathan Wei did not check in.
+-Fitness classes-
+PILATES - JENNIFER, 9:30, BRIDGEWATER
+SPINNING - JENNIFER, 14:00, PISCATAWAY
+CARDIO - JENNIFER, 18:30, SOMERVILLE
+PILATES - KIM, 9:30, FRANKLIN
+- Participants -
+   Paul Siegel, DOB: 6/30/1999, Membership expires 12/28/2022, Location: FRANKLIN, 08873, SOMERSET
+SPINNING - KIM, 14:00, FRANKLIN
+CARDIO - KIM, 18:30, PISCATAWAY
+PILATES - DAVIS, 9:30, PISCATAWAY
+- Participants -
+   Jerry Brown, DOB: 6/30/1979, Membership expires 12/28/2022, Location: EDISON, 08837, MIDDLESEX, (Family) guest-pass remaining: 1
+PILATES - DAVIS, 14:00, EDISON
+CARDIO - DAVIS, 18:30, BRIDGEWATER
+- Participants -
+   Jonnathan Wei, DOB: 9/21/1992, Membership expires 9/28/2023, Location: BRIDGEWATER, 08807, SOMERSET, (Premium) Guess-pass remaining: 3
+SPINNING - DENISE, 9:30, BRIDGEWATER
+CARDIO - DENISE, 14:00, SOMERVILLE
+SPINNING - DENISE, 18:30, EDISON
+SPINNING - EMMA, 9:30, FRANKLIN
+PILATES - EMMA, 14:00, EDISON
+- Participants -
+   Jane Doe, DOB: 5/1/1996, Membership expires 6/20/2023, Location: EDISON, 08837, MIDDLESEX
+   Bill Scanlan, DOB: 5/1/1999, Membership expires 1/31/2023, Location: EDISON, 08837, MIDDLESEX
+CARDIO - EMMA, 18:30, EDISON
+-end of class list.
+
+Standard membership - guest check-in is not allowed.
+Jonnathan Wei (guest) checked in SPINNING - DENISE, 9:30, BRIDGEWATER
+- Guests -
+   Jonnathan Wei, DOB: 9/21/1992, Membership expires 9/28/2023, Location: BRIDGEWATER, 08807, SOMERSET, (Premium) Guess-pass remaining: 2
+
+Jonnathan Wei (guest) checked in CARDIO - DAVIS, 18:30, BRIDGEWATER
+- Participants -
+   Jonnathan Wei, DOB: 9/21/1992, Membership expires 9/28/2023, Location: BRIDGEWATER, 08807, SOMERSET, (Premium) Guess-pass remaining: 1
+- Guests -
+   Jonnathan Wei, DOB: 9/21/1992, Membership expires 9/28/2023, Location: BRIDGEWATER, 08807, SOMERSET, (Premium) Guess-pass remaining: 1
+
+Jonnathan Wei Guest checking in EDISON, 08837, MIDDLESEX - guest location restriction.
+Jonnathan Wei (guest) checked in CARDIO - DAVIS, 18:30, BRIDGEWATER
+- Participants -
+   Jonnathan Wei, DOB: 9/21/1992, Membership expires 9/28/2023, Location: BRIDGEWATER, 08807, SOMERSET, (Premium) Guess-pass remaining: 0
+- Guests -
+   Jonnathan Wei, DOB: 9/21/1992, Membership expires 9/28/2023, Location: BRIDGEWATER, 08807, SOMERSET, (Premium) Guess-pass remaining: 0
+   Jonnathan Wei, DOB: 9/21/1992, Membership expires 9/28/2023, Location: BRIDGEWATER, 08807, SOMERSET, (Premium) Guess-pass remaining: 0
+
+Jonnathan Wei ran out of guest pass.
+Jonnathan Wei Guest done with the class.
+Jonnathan Wei (guest) checked in CARDIO - DAVIS, 18:30, BRIDGEWATER
+- Participants -
+   Jonnathan Wei, DOB: 9/21/1992, Membership expires 9/28/2023, Location: BRIDGEWATER, 08807, SOMERSET, (Premium) Guess-pass remaining: 0
+- Guests -
+   Jonnathan Wei, DOB: 9/21/1992, Membership expires 9/28/2023, Location: BRIDGEWATER, 08807, SOMERSET, (Premium) Guess-pass remaining: 0
+   Jonnathan Wei, DOB: 9/21/1992, Membership expires 9/28/2023, Location: BRIDGEWATER, 08807, SOMERSET, (Premium) Guess-pass remaining: 0
+
+Jonnathan Wei ran out of guest pass.
+Jerry Brown Guest checking in BRIDGEWATER, 08807, SOMERSET - guest location restriction.
+Jerry Brown (guest) checked in PILATES - DAVIS, 14:00, EDISON
+- Guests -
+   Jerry Brown, DOB: 6/30/1979, Membership expires 12/28/2022, Location: EDISON, 08837, MIDDLESEX, (Family) guest-pass remaining: 0
+
+Jerry Brown ran out of guest pass.
+Jerry Brown Guest done with the class.
+Jerry Brown (guest) checked in PILATES - DAVIS, 14:00, EDISON
+- Guests -
+   Jerry Brown, DOB: 6/30/1979, Membership expires 12/28/2022, Location: EDISON, 08837, MIDDLESEX, (Family) guest-pass remaining: 0
+
+Jerry Brown ran out of guest pass.
+-Fitness classes-
+PILATES - JENNIFER, 9:30, BRIDGEWATER
+SPINNING - JENNIFER, 14:00, PISCATAWAY
+CARDIO - JENNIFER, 18:30, SOMERVILLE
+PILATES - KIM, 9:30, FRANKLIN
+- Participants -
+   Paul Siegel, DOB: 6/30/1999, Membership expires 12/28/2022, Location: FRANKLIN, 08873, SOMERSET
+SPINNING - KIM, 14:00, FRANKLIN
+CARDIO - KIM, 18:30, PISCATAWAY
+PILATES - DAVIS, 9:30, PISCATAWAY
+- Participants -
+   Jerry Brown, DOB: 6/30/1979, Membership expires 12/28/2022, Location: EDISON, 08837, MIDDLESEX, (Family) guest-pass remaining: 0
+PILATES - DAVIS, 14:00, EDISON
+- Guests -
+   Jerry Brown, DOB: 6/30/1979, Membership expires 12/28/2022, Location: EDISON, 08837, MIDDLESEX, (Family) guest-pass remaining: 0
+CARDIO - DAVIS, 18:30, BRIDGEWATER
+- Participants -
+   Jonnathan Wei, DOB: 9/21/1992, Membership expires 9/28/2023, Location: BRIDGEWATER, 08807, SOMERSET, (Premium) Guess-pass remaining: 0
+- Guests -
+   Jonnathan Wei, DOB: 9/21/1992, Membership expires 9/28/2023, Location: BRIDGEWATER, 08807, SOMERSET, (Premium) Guess-pass remaining: 0
+   Jonnathan Wei, DOB: 9/21/1992, Membership expires 9/28/2023, Location: BRIDGEWATER, 08807, SOMERSET, (Premium) Guess-pass remaining: 0
+SPINNING - DENISE, 9:30, BRIDGEWATER
+- Guests -
+   Jonnathan Wei, DOB: 9/21/1992, Membership expires 9/28/2023, Location: BRIDGEWATER, 08807, SOMERSET, (Premium) Guess-pass remaining: 0
+CARDIO - DENISE, 14:00, SOMERVILLE
+SPINNING - DENISE, 18:30, EDISON
+SPINNING - EMMA, 9:30, FRANKLIN
+PILATES - EMMA, 14:00, EDISON
+- Participants -
+   Jane Doe, DOB: 5/1/1996, Membership expires 6/20/2023, Location: EDISON, 08837, MIDDLESEX
+   Bill Scanlan, DOB: 5/1/1999, Membership expires 1/31/2023, Location: EDISON, 08837, MIDDLESEX
+CARDIO - EMMA, 18:30, EDISON
+-end of class list.
+
+Gary Smith added.
+Jason Miller added.
+Gary Johnson added.
+Jason Lopez added.
+
+-list of members sorted by last name, and first name-
+Roy Brooks, DOB: 8/8/1977, Membership expired 9/30/2020, Location: SOMERVILLE, 08876, SOMERSET
+Roy Brooks, DOB: 9/9/1977, Membership expires 10/30/2022, Location: SOMERVILLE, 08876, SOMERSET
+Carl Brown, DOB: 10/7/1991, Membership expires 3/31/2023, Location: PISCATAWAY, 08854, MIDDLESEX
+Jerry Brown, DOB: 6/30/1979, Membership expires 12/28/2022, Location: EDISON, 08837, MIDDLESEX, (Family) guest-pass remaining: 0
+Jane Doe, DOB: 5/1/1996, Membership expires 6/20/2023, Location: EDISON, 08837, MIDDLESEX
+John Doe, DOB: 1/20/2004, Membership expires 2/15/2023, Location: BRIDGEWATER, 08807, SOMERSET
+John Doe, DOB: 1/20/2003, Membership expired 3/30/2021, Location: BRIDGEWATER, 08807, SOMERSET
+Duke Ellington, DOB: 2/29/2000, Membership expires 4/30/2023, Location: FRANKLIN, 08873, SOMERSET
+Gary Johnson, DOB: 4/3/2000, Membership expires 9/28/2023, Location: EDISON, 08837, MIDDLESEX, (Premium) Guess-pass remaining: 3
+Kate Lindsey, DOB: 7/15/1977, Membership expires 8/31/2023, Location: SOMERVILLE, 08876, SOMERSET
+Mary Lindsey, DOB: 12/1/1989, Membership expires 5/31/2023, Location: FRANKLIN, 08873, SOMERSET
+Jason Lopez, DOB: 2/28/1998, Membership expires 9/28/2023, Location: PISCATAWAY, 08854, MIDDLESEX, (Premium) Guess-pass remaining: 3
+April March, DOB: 3/31/1990, Membership expires 12/30/2022, Location: PISCATAWAY, 08854, MIDDLESEX
+Jason Miller, DOB: 1/28/2003, Membership expires 12/28/2022, Location: FRANKLIN, 08873, SOMERSET, (Family) guest-pass remaining: 1
+Bill Scanlan, DOB: 5/1/1999, Membership expires 1/31/2023, Location: EDISON, 08837, MIDDLESEX
+Paul Siegel, DOB: 6/30/1999, Membership expires 12/28/2022, Location: FRANKLIN, 08873, SOMERSET
+Gary Smith, DOB: 7/2/1989, Membership expires 12/28/2022, Location: BRIDGEWATER, 08807, SOMERSET, (Family) guest-pass remaining: 1
+Jonnathan Wei, DOB: 9/21/1992, Membership expires 9/28/2023, Location: BRIDGEWATER, 08807, SOMERSET, (Premium) Guess-pass remaining: 0
+-end of list-
+
+
+-list of members with membership fees-
+Roy Brooks, DOB: 8/8/1977, Membership expired 9/30/2020, Location: SOMERVILLE, 08876, SOMERSET, Membership fee: $149.96
+Roy Brooks, DOB: 9/9/1977, Membership expires 10/30/2022, Location: SOMERVILLE, 08876, SOMERSET, Membership fee: $149.96
+Carl Brown, DOB: 10/7/1991, Membership expires 3/31/2023, Location: PISCATAWAY, 08854, MIDDLESEX, Membership fee: $149.96
+Jerry Brown, DOB: 6/30/1979, Membership expires 12/28/2022, Location: EDISON, 08837, MIDDLESEX, (Family) guest-pass remaining: 0, Membership fee: $209.96
+Jane Doe, DOB: 5/1/1996, Membership expires 6/20/2023, Location: EDISON, 08837, MIDDLESEX, Membership fee: $149.96
+John Doe, DOB: 1/20/2004, Membership expires 2/15/2023, Location: BRIDGEWATER, 08807, SOMERSET, Membership fee: $149.96
+John Doe, DOB: 1/20/2003, Membership expired 3/30/2021, Location: BRIDGEWATER, 08807, SOMERSET, Membership fee: $149.96
+Duke Ellington, DOB: 2/29/2000, Membership expires 4/30/2023, Location: FRANKLIN, 08873, SOMERSET, Membership fee: $149.96
+Gary Johnson, DOB: 4/3/2000, Membership expires 9/28/2023, Location: EDISON, 08837, MIDDLESEX, (Premium) Guess-pass remaining: 3, Membership fee: $659.89
+Kate Lindsey, DOB: 7/15/1977, Membership expires 8/31/2023, Location: SOMERVILLE, 08876, SOMERSET, Membership fee: $149.96
+Mary Lindsey, DOB: 12/1/1989, Membership expires 5/31/2023, Location: FRANKLIN, 08873, SOMERSET, Membership fee: $149.96
+Jason Lopez, DOB: 2/28/1998, Membership expires 9/28/2023, Location: PISCATAWAY, 08854, MIDDLESEX, (Premium) Guess-pass remaining: 3, Membership fee: $659.89
+April March, DOB: 3/31/1990, Membership expires 12/30/2022, Location: PISCATAWAY, 08854, MIDDLESEX, Membership fee: $149.96
+Jason Miller, DOB: 1/28/2003, Membership expires 12/28/2022, Location: FRANKLIN, 08873, SOMERSET, (Family) guest-pass remaining: 1, Membership fee: $209.96
+Bill Scanlan, DOB: 5/1/1999, Membership expires 1/31/2023, Location: EDISON, 08837, MIDDLESEX, Membership fee: $149.96
+Paul Siegel, DOB: 6/30/1999, Membership expires 12/28/2022, Location: FRANKLIN, 08873, SOMERSET, Membership fee: $149.96
+Gary Smith, DOB: 7/2/1989, Membership expires 12/28/2022, Location: BRIDGEWATER, 08807, SOMERSET, (Family) guest-pass remaining: 1, Membership fee: $209.96
+Jonnathan Wei, DOB: 9/21/1992, Membership expires 9/28/2023, Location: BRIDGEWATER, 08807, SOMERSET, (Premium) Guess-pass remaining: 0, Membership fee: $659.89
+-end of list-
+
+q is an invalid command!
+Gym Manager terminated.
+Displaying Project2_expectedOutput.txt.
