@@ -27,7 +27,8 @@ public class GymManagerController {
         try {
             File memberList = new File("memberList.txt");
             Scanner memberScanner = new Scanner(memberList);
-            output.appendText("\n-list of members loaded-");
+            //System.out.println("\n-list of members loaded-");
+            output.appendText("-list of members loaded-");
             while (memberScanner.hasNextLine()) {
                 st = new StringTokenizer(memberScanner.nextLine());
                 addMember('M');
@@ -231,6 +232,12 @@ public class GymManagerController {
         member.setDob(new Date(st.nextToken()));
         if (db.remove(member)) System.out.println(member.getFname() + " " + member.getLname() + " removed.");
         else System.out.println(member.getFname() + " " + member.getLname() + " is not in the database.");
+    }
+
+    @FXML
+    private void printMemberList() {
+        output.clear();
+        output.appendText(db.print());
     }
 
     /**

@@ -90,21 +90,26 @@ public class MemberDatabase {
      * Prints list of members with the provided header.
      * @param header describes the list that is being printed.
      */
-    private void print(String header) {
+    private String print(String header) {
+        StringBuilder sb = new StringBuilder();
         if (memberDbEmpty()) {
-            System.out.println("Member database is empty!");
-            return;
+            //System.out.println("Member database is empty!");
+            sb.append("Member database is empty!");
+            return sb.toString();
         }
-        System.out.println("\n-" + header + "-");
-        for (Member m : mlist) if (m != null) System.out.println(m);
-        System.out.println("-end of list-\n");
+        //System.out.println("\n-" + header + "-");
+        sb.append("-" + header + "-");
+        for (Member m : mlist) if (m != null) sb.append("\n" + m);
+        //System.out.println("-end of list-\n");
+        sb.append("\n-end of list-\n");
+        return sb.toString();
     }
 
     /**
      * Print list of members in database in without sorting.
      */
-    public void print() {
-        print("list of members");
+    public String print() {
+        return print("list of members");
     }
 
     /**
