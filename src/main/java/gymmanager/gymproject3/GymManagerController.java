@@ -112,7 +112,7 @@ public class GymManagerController {
             File memberList = new File("memberList.txt");
             Scanner memberScanner = new Scanner(memberList);
             //System.out.println("\n-list of members loaded-");
-            output.appendText("\n-list of members loaded-");
+            output.appendText("-list of members loaded-");
             while (memberScanner.hasNextLine()) {
                 st = new StringTokenizer(memberScanner.nextLine());
                 addMember('M');
@@ -327,6 +327,12 @@ public class GymManagerController {
         member.setDob(new Date(st.nextToken()));
         if (db.remove(member)) System.out.println(member.getFname() + " " + member.getLname() + " removed.");
         else System.out.println(member.getFname() + " " + member.getLname() + " is not in the database.");
+    }
+
+    @FXML
+    private void printMemberList() {
+        output.clear();
+        output.appendText(db.print());
     }
 
     /**
@@ -550,12 +556,6 @@ public class GymManagerController {
 
 
 
-
     @FXML
     private TextArea output;
-
-    @FXML
-    protected void onHelloButtonClick() {
-        output.setText("Welcome to JavaFX Application!");
-    }
 }

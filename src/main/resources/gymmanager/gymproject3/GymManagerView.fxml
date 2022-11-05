@@ -221,7 +221,7 @@
                                     <menus>
                                         <Menu mnemonicParsing="false" text="Member Database">
                                             <items>
-                                                <MenuItem mnemonicParsing="false" text="Print" />
+                                                <MenuItem mnemonicParsing="false" onAction="#printMemberList" text="Print" />
                                                 <MenuItem mnemonicParsing="false" text="Print by County/Zipcode" />
                                                 <MenuItem mnemonicParsing="false" text="Print by Last/First Names" />
                                                 <MenuItem mnemonicParsing="false" text="Print by Expiration Date" />
