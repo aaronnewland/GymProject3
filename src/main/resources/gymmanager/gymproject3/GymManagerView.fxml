@@ -67,13 +67,13 @@
                                                 <Insets right="10.0" />
                                             </GridPane.margin>
                                         </Label>
-                                        <TextField GridPane.columnIndex="1" />
-                                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                        <DatePicker prefHeight="26.0" prefWidth="293.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                        <TextField fx:id="mFirstName" GridPane.columnIndex="1" />
+                                        <TextField fx:id="mLastName" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                        <DatePicker fx:id="mDob" editable="false" prefHeight="26.0" prefWidth="293.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                        <TextField fx:id="mLocation" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                         <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                                             <children>
-                                                <RadioButton mnemonicParsing="false" text="Standard">
+                                                <RadioButton fx:id="mStandardMembershipOption" mnemonicParsing="false" text="Standard">
                                                     <padding>
                                                         <Insets right="30.0" top="10.0" />
                                                     </padding>
@@ -81,12 +81,12 @@
                                                         <ToggleGroup fx:id="MemberhipType" />
                                                     </toggleGroup>
                                                 </RadioButton>
-                                                <RadioButton mnemonicParsing="false" text="Family" toggleGroup="$MemberhipType">
+                                                <RadioButton fx:id="mFamilyMembershipOption" mnemonicParsing="false" text="Family" toggleGroup="$MemberhipType">
                                                     <padding>
                                                         <Insets right="30.0" top="10.0" />
                                                     </padding>
                                                 </RadioButton>
-                                                <RadioButton mnemonicParsing="false" text="Premium" toggleGroup="$MemberhipType">
+                                                <RadioButton fx:id="mPremiumMembershipOption" mnemonicParsing="false" text="Premium" toggleGroup="$MemberhipType">
                                                     <padding>
                                                         <Insets top="10.0" />
                                                     </padding>
@@ -95,12 +95,12 @@
                                         </HBox>
                                         <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
                                             <children>
-                                                <Button mnemonicParsing="false" prefHeight="29.0" prefWidth="110.0" text="Add">
+                                                <Button mnemonicParsing="false" onAction="#handleMembershipAdd" prefHeight="29.0" prefWidth="110.0" text="Add">
                                                     <HBox.margin>
                                                         <Insets top="10.0" />
                                                     </HBox.margin>
                                                 </Button>
-                                                <Button layoutX="10.0" layoutY="20.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="110.0" text="Remove">
+                                                <Button layoutX="10.0" layoutY="20.0" mnemonicParsing="false" onAction="#handleMembershipRemove" prefHeight="29.0" prefWidth="110.0" text="Remove">
                                                     <HBox.margin>
                                                         <Insets left="15.0" top="10.0" />
                                                     </HBox.margin>
@@ -161,13 +161,13 @@
                                                 <Insets right="10.0" />
                                             </GridPane.margin>
                                         </Label>
-                                        <TextField GridPane.columnIndex="1" />
-                                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                        <DatePicker prefHeight="26.0" prefWidth="293.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                        <TextField fx:id="fcFirstName" GridPane.columnIndex="1" />
+                                        <TextField fx:id="fcLastName" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                        <DatePicker fx:id="fcDob" editable="false" prefHeight="26.0" prefWidth="293.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                        <TextField fx:id="fcClassLocation" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                         <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
                                             <children>
-                                                <RadioButton mnemonicParsing="false" text="Member">
+                                                <RadioButton fx:id="fcMemberOption" mnemonicParsing="false" text="Member">
                                                     <padding>
                                                         <Insets right="30.0" top="10.0" />
                                                     </padding>
@@ -175,7 +175,7 @@
                                                         <ToggleGroup fx:id="MemberhipType1" />
                                                     </toggleGroup>
                                                 </RadioButton>
-                                                <RadioButton mnemonicParsing="false" text="Guest" toggleGroup="$MemberhipType1">
+                                                <RadioButton fx:id="fcGuestOption" mnemonicParsing="false" text="Guest" toggleGroup="$MemberhipType1">
                                                     <padding>
                                                         <Insets right="30.0" top="10.0" />
                                                     </padding>
@@ -184,20 +184,20 @@
                                         </HBox>
                                         <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
                                             <children>
-                                                <Button mnemonicParsing="false" prefHeight="29.0" prefWidth="110.0" text="Check In">
+                                                <Button mnemonicParsing="false" onAction="#handleFitnessClassCheckIn" prefHeight="29.0" prefWidth="110.0" text="Check In">
                                                     <HBox.margin>
                                                         <Insets top="10.0" />
                                                     </HBox.margin>
                                                 </Button>
-                                                <Button layoutX="10.0" layoutY="20.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="110.0" text="Check Out">
+                                                <Button layoutX="10.0" layoutY="20.0" mnemonicParsing="false" onAction="#handleFitnessClassCheckout" prefHeight="29.0" prefWidth="110.0" text="Check Out">
                                                     <HBox.margin>
                                                         <Insets left="15.0" top="10.0" />
                                                     </HBox.margin>
                                                 </Button>
                                             </children>
                                         </HBox>
-                                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                        <TextField fx:id="fcClassName" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                        <TextField fx:id="fcInstructorName" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                                         <Label text="Class Name" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
                                             <padding>
                                                 <Insets right="10.0" />
@@ -221,23 +221,23 @@
                                     <menus>
                                         <Menu mnemonicParsing="false" text="Member Database">
                                             <items>
-                                                <MenuItem mnemonicParsing="false" text="Print" />
-                                                <MenuItem mnemonicParsing="false" text="Print by County/Zipcode" />
-                                                <MenuItem mnemonicParsing="false" text="Print by Last/First Names" />
-                                                <MenuItem mnemonicParsing="false" text="Print by Expiration Date" />
-                                                <MenuItem mnemonicParsing="false" onAction="#loadMemberData" text="Load member list from file" />
+                                                <MenuItem mnemonicParsing="false" onAction="#handleInformationHubPrint" text="Print" />
+                                                <MenuItem mnemonicParsing="false" onAction="#handleInformationHubPrintByCountyZip" text="Print by County/Zipcode" />
+                                                <MenuItem mnemonicParsing="false" onAction="#handleInformationHubPrintByLastFirst" text="Print by Last/First Names" />
+                                                <MenuItem mnemonicParsing="false" onAction="#handleInformationHubPrintByExpiration" text="Print by Expiration Date" />
+                                                <MenuItem mnemonicParsing="false" onAction="#handleInformationHubLoadMembershipList" text="Load member list from file" />
                                             </items>
                                         </Menu>
                                         <Menu mnemonicParsing="false" text="Class Schedule">
                                             <items>
-                                                <MenuItem mnemonicParsing="false" text="Show all classes" />
-                                                <MenuItem mnemonicParsing="false" onAction="#initFitnessClasses" text="Load class schedule from file" />
+                                                <MenuItem mnemonicParsing="false" onAction="#handleInformationHubShowAllClasses" text="Show all classes" />
+                                                <MenuItem mnemonicParsing="false" onAction="#handleInformationHubLoadClassSchedule" text="Load class schedule from file" />
                                             </items>
                                         </Menu>
                                         <Menu mnemonicParsing="false" text="Membership Fee">
                                             <items>
-                                                <MenuItem mnemonicParsing="false" text="First bill" />
-                                                <MenuItem mnemonicParsing="false" text="Next bill" />
+                                                <MenuItem mnemonicParsing="false" onAction="#handleInformationHubFirstBill" text="First bill" />
+                                                <MenuItem mnemonicParsing="false" onAction="#handleInformationHubNextBill" text="Next bill" />
                                             </items>
                                         </Menu>
                                     </menus>
@@ -250,7 +250,7 @@
         </TabPane>
     </center>
     <bottom>
-        <TextArea fx:id="output" prefHeight="163.0" prefWidth="601.0" wrapText="true" BorderPane.alignment="CENTER">
+        <TextArea fx:id="output" editable="false" prefHeight="163.0" prefWidth="601.0" wrapText="true" BorderPane.alignment="CENTER">
             <padding>
                 <Insets top="10.0" />
             </padding>
