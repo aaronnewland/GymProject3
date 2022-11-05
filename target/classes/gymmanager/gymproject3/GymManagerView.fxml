@@ -225,7 +225,7 @@
                                                 <MenuItem mnemonicParsing="false" text="Print by County/Zipcode" />
                                                 <MenuItem mnemonicParsing="false" text="Print by Last/First Names" />
                                                 <MenuItem mnemonicParsing="false" text="Print by Expiration Date" />
-                                                <MenuItem mnemonicParsing="false" text="Load member list from file" />
+                                                <MenuItem mnemonicParsing="false" onAction="#loadMemberData" text="Load member list from file" />
                                             </items>
                                         </Menu>
                                         <Menu mnemonicParsing="false" text="Class Schedule">

@@ -11,7 +11,8 @@ import javafx.scene.control.TextArea;
 public class GymManagerController {
     StringTokenizer st;
     private boolean oldMemberFlag = false;
-    MemberDatabase db;
+    // TODO: initialize MemberDatabase. Keep or move to method?
+    MemberDatabase db = new MemberDatabase();
     ClassSchedule classes;
 
     /**
@@ -103,19 +104,25 @@ public class GymManagerController {
      * Loads historic member data from text file named "memberList.txt
      * Sets oldMemberFlag to "true" then to "false" so addMember() doesn't calculate expire date
      */
+    @FXML
     private void loadMemberData() {
+        output.clear();
         oldMemberFlag = true;
         try {
             File memberList = new File("memberList.txt");
             Scanner memberScanner = new Scanner(memberList);
-            System.out.println("\n-list of members loaded-");
+            //System.out.println("\n-list of members loaded-");
+            output.appendText("\n-list of members loaded-");
             while (memberScanner.hasNextLine()) {
                 st = new StringTokenizer(memberScanner.nextLine());
                 addMember('M');
             }
-            System.out.println("-end of list-\n");
+            //System.out.println("-end of list-\n");
+            output.appendText("\n-end of list-\n");
         } catch (FileNotFoundException e) {
-            System.out.println("Error.");
+            //System.out.println("Error.");
+            output.setText("Error.");
+            // TODO: prints to system out? Remove?
             e.printStackTrace();
         }
         oldMemberFlag = false;
@@ -151,6 +158,8 @@ public class GymManagerController {
      */
     @FXML
     private void initFitnessClasses() {
+        // clear output field
+        output.clear();
         classes = new ClassSchedule();
         try {
             File fitnessSchedule = new File("classSchedule.txt");
@@ -226,7 +235,8 @@ public class GymManagerController {
 
         location = findLocation(locationName);
         if (location == null) {
-            System.out.println(locationName + ": invalid location!");
+            //System.out.println(locationName + ": invalid location!");
+            output.appendText(locationName + ": invalid location!");
             return;
         }
         member.setLocation(location);
@@ -235,19 +245,25 @@ public class GymManagerController {
         Date expirationDate = member instanceof Premium ? today.addOneYear() : today.addThreeMonths();
         if (!oldMemberFlag) member.setExpire(expirationDate);
         if (!member.getExpire().isValid()) {
-            System.out.println("Expiration date " + member.getExpire() + ": invalid calendar date!");
+            //System.out.println("Expiration date " + member.getExpire() + ": invalid calendar date!");
+            output.appendText("Expiration date " + member.getExpire() + ": invalid calendar date!");
             return;
         }
 
         boolean memberAdded = db.add(member);
         if (!oldMemberFlag && memberAdded)
-            System.out.println(member.getFname() + " " + member.getLname() + " added.");
+            //System.out.println(member.getFname() + " " + member.getLname() + " added.");
+            output.appendText(member.getFname() + " " + member.getLname() + " added.");
         else if (oldMemberFlag && memberAdded)
-            System.out.println(member.getFname() + " " + member.getLname() + " DOB "
+//            System.out.println(member.getFname() + " " + member.getLname() + " DOB "
+//                    + member.getDob() + ", " + "Membership expires "
+//                    + member.getExpire() + ", " + member.getLocation());
+            output.appendText("\n" + member.getFname() + " " + member.getLname() + " DOB "
                     + member.getDob() + ", " + "Membership expires "
                     + member.getExpire() + ", " + member.getLocation());
         else if (!db.add(member))
-            System.out.println(member.getFname() + " " + member.getLname() + " is already in the database.");
+            //System.out.println(member.getFname() + " " + member.getLname() + " is already in the database.");
+            output.appendText(member.getFname() + " " + member.getLname() + " is already in the database.");
     }
 
     /**
@@ -449,13 +465,16 @@ public class GymManagerController {
     private boolean validBirthDate(Member member) {
         Date today = new Date();
         if (!member.getDob().isValid()) {
-            System.out.println("DOB " + member.getDob() + ": invalid calendar date!");
+            //System.out.println("DOB " + member.getDob() + ": invalid calendar date!");
+            output.appendText("DOB " + member.getDob() + ": invalid calendar date!");
             return false;
         } else if (member.getDob().compareTo(today) > 0) {
-            System.out.println("DOB " + member.getDob() + ": cannot be today or a future date!");
+            //System.out.println("DOB " + member.getDob() + ": cannot be today or a future date!");
+            output.appendText("DOB " + member.getDob() + ": cannot be today or a future date!");
             return false;
         } else if (!member.getDob().isOfAge()) {
-            System.out.println("DOB " + member.getDob() + ": must be 18 or older to join!");
+            //System.out.println("DOB " + member.getDob() + ": must be 18 or older to join!");
+            output.appendText("DOB " + member.getDob() + ": must be 18 or older to join!");
             return false;
         }
         return true;
