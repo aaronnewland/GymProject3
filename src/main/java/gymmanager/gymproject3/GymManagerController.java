@@ -540,27 +540,27 @@ public class GymManagerController {
 
     @FXML
     protected void handleFitnessClassCheckout() {
-        output.appendText("Fitness Class Checkout\n");
+        if (!memberDbEmpty()) output.appendText("Fitness Class Checkout\n");
     }
 
     @FXML
     protected void handleInformationHubPrint() {
-        output.appendText("Member DB Print\n");
+        if (!memberDbEmpty()) output.appendText(db.print());
     }
 
     @FXML
     protected void handleInformationHubPrintByCountyZip() {
-        output.appendText("Member DB Print by County & Zip\n");
+        if (!memberDbEmpty()) output.appendText(db.printByCounty());
     }
 
     @FXML
     protected void handleInformationHubPrintByLastFirst() {
-        output.appendText("Member DB Print by Last & First\n");
+        if (!memberDbEmpty()) output.appendText(db.printByName());
     }
 
     @FXML
     protected void handleInformationHubPrintByExpiration() {
-        output.appendText("Member DB Print by Expiration\n");
+        if (!memberDbEmpty()) output.appendText(db.printByExpirationDate());
     }
 
     @FXML
@@ -607,5 +607,14 @@ public class GymManagerController {
         output.appendText("Instructor Name: " + fcInstructorName.getCharacters() + "\n");
         output.appendText("Member Option Selected?: " + fcMemberOption.isSelected() + "\n");
         output.appendText("Guest Option Selected?: " + fcGuestOption.isSelected() + "\n");
+    }
+
+    private boolean memberDbEmpty() {
+        if (db.memberDbEmpty()) {
+            output.appendText("Member database is empty!\n");
+            return true;
+        } else {
+            return false;
+        }
     }
 }

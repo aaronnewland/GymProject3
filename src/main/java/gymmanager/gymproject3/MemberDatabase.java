@@ -93,14 +93,11 @@ public class MemberDatabase {
     private String print(String header) {
         StringBuilder sb = new StringBuilder();
         if (memberDbEmpty()) {
-            //System.out.println("Member database is empty!");
             sb.append("Member database is empty!");
             return sb.toString();
         }
-        //System.out.println("\n-" + header + "-");
         sb.append("-" + header + "-");
         for (Member m : mlist) if (m != null) sb.append("\n" + m);
-        //System.out.println("-end of list-\n");
         sb.append("\n-end of list-\n");
         return sb.toString();
     }
@@ -115,39 +112,37 @@ public class MemberDatabase {
     /**
      * Print list of members with their membership fees
      */
-    public void printWithFees() {
-        if (memberDbEmpty()) {
-            System.out.println("Member database is empty!");
-            return;
-        }
-        System.out.println("\n-list of members with membership fees-");
+    public String printWithFees() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("\n-list of members with membership fees-\n");
         for (Member m : mlist)
-            if (m != null) System.out.println(m + ", Membership fee: $" + m.membershipFee());
-        System.out.println("-end of list-\n");
+            if (m != null) sb.append(m + ", Membership fee: $" + m.membershipFee() + "\n");
+        sb.append("-end of list-\n");
+        return sb.toString();
     }
 
     /**
      * Print list sorted by county names then by zipcode.
      */
-    public void printByCounty() {
+    public String printByCounty() {
         sortByCounty();
-        print("list of members sorted by county and zipcode");
+        return print("list of members sorted by county and zipcode");
     }
 
     /**
      * Print list sorted by expiration date.
      */
-    public void printByExpirationDate() {
+    public String printByExpirationDate() {
         sortByExpiration();
-        print("list of members sorted by membership expiration date");
+        return print("list of members sorted by membership expiration date");
     }
 
     /**
      * Print list sorted by last name then by first name.
      */
-    public void printByName() {
+    public String printByName() {
         sortByName();
-        print("list of members sorted by last name, and first name");
+        return print("list of members sorted by last name, and first name");
     }
 
     /**
@@ -221,7 +216,7 @@ public class MemberDatabase {
      * Determines if member database is empty.
      * @return true if database is empty, false otherwise.
      */
-    private boolean memberDbEmpty() {
+    public boolean memberDbEmpty() {
         return mlist == null || mlist.length == 0;
     }
 }
