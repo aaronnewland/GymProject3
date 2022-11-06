@@ -1,5 +1,10 @@
 package gymmanager.gymproject3;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+import java.util.StringTokenizer;
+
 /**
  * Creates and maintains a database that holds members and can sort by name, expiration date, or county.
  * @author Aaron Newland, Dylan Pina
@@ -8,6 +13,8 @@ public class MemberDatabase {
     final int INIT_CAP = 4;
     private Member[] mlist;
     private int size;
+    StringTokenizer st;
+    private boolean oldMemberFlag = true;
 
     /**
      * Searches for Member in database.
@@ -87,10 +94,99 @@ public class MemberDatabase {
     }
 
     /**
+     * Loads historical member info from text file.
+     * @param memberList file to read in member info from.
+     */
+    public void loadMemberData(File memberList) {
+        try {
+            Scanner memberScanner = new Scanner(memberList);
+            //output.appendText("-list of members loaded-");
+            while (memberScanner.hasNextLine()) {
+                st = new StringTokenizer(memberScanner.nextLine());
+                addMember();
+            }
+        } catch (FileNotFoundException e) {
+        }
+    }
+
+    /**
+     * Reads in member info, creates a member for each entry, and places new member in database.
+     */
+    private void addMember() {
+        Member member = new Member();
+        if (member == null) return;
+        member.setFname(st.nextToken());
+        member.setLname(st.nextToken());
+        member.setDob(new Date(st.nextToken()));
+        if (oldMemberFlag) member.setExpire(new Date(st.nextToken()));
+        String locationName = st.nextToken();
+        Location location;
+
+        // check for valid date of birth
+        if (!validDob(member)) return;
+
+        location = findLocation(locationName);
+        if (location == null) {
+            return;
+        }
+        member.setLocation(location);
+
+        if (!member.getExpire().isValid()) {
+            return;
+        }
+
+        this.add(member);
+    }
+
+    /**
+     * Checks that birthdate is a valid calendar date, is earlier than today, and is over the age of 18.
+     * @param member member whose birthdate we are testing for validity
+     * @return true if date of birth is valid, false otherwise.
+     */
+    private boolean validDob(Member member) {
+        Date today = new Date();
+        if (!member.getDob().isValid()) {
+            return false;
+        } else if (member.getDob().compareTo(today) > 0) {
+            return false;
+        } else if (!member.getDob().isOfAge()) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Determines the home location of a new gym member that is being added to the database
+     * @param locationName String of member's gym location that needs to be found
+     * @return Location object of gym members location, returns null Location if location not found
+     */
+    private Location findLocation(String locationName) {
+        Location location = null;
+        switch (locationName.toUpperCase()) {
+            case "BRIDGEWATER":
+                location = Location.BRIDGEWATER;
+                break;
+            case "EDISON":
+                location = Location.EDISON;
+                break;
+            case "PISCATAWAY":
+                location = Location.PISCATAWAY;
+                break;
+            case "FRANKLIN":
+                location = Location.FRANKLIN;
+                break;
+            case "SOMERVILLE":
+                location = Location.SOMERVILLE;
+                break;
+        }
+        return location;
+    }
+
+    /**
      * Prints list of members with the provided header.
      * @param header describes the list that is being printed.
      */
-    private String print(String header) {
+    public String print(String header) {
         StringBuilder sb = new StringBuilder();
         if (memberDbEmpty()) {
             sb.append("Member database is empty!");

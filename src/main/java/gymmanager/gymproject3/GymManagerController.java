@@ -1,10 +1,6 @@
 package gymmanager.gymproject3;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
-import java.util.StringTokenizer;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.FileChooser;
@@ -13,8 +9,6 @@ import javafx.stage.FileChooser;
  * @author Aaron Newland, Dylan Pina
  */
 public class GymManagerController {
-    StringTokenizer st;
-    private boolean oldMemberFlag = false;
     MemberDatabase db = new MemberDatabase();
     ClassSchedule classes;
 
@@ -59,18 +53,15 @@ public class GymManagerController {
         else if (mPremiumMembershipOption.isSelected()) member = new Premium(firstName, lastName, dob, location);
 
         Date expirationDate = member instanceof Premium ? new Date().addOneYear() : new Date().addThreeMonths();
-        if (!oldMemberFlag) member.setExpire(expirationDate);
+        member.setExpire(expirationDate);
         if (!member.getExpire().isValid()) {
             output.appendText("Expiration date " + member.getExpire() + ": invalid calendar date!\n");
             return;
         }
 
         boolean memberAdded = db.add(member);
-        if (!oldMemberFlag && memberAdded)
+        if (memberAdded)
             output.appendText(member.getFname() + " " + member.getLname() + " added.\n");
-        else if (oldMemberFlag && memberAdded)
-            output.appendText("\n" + member.getFname() + " " + member.getLname() + " DOB " + member.getDob() + ", "
-                    + "Membership expires " + member.getExpire() + ", " + member.getLocation() + "\n") ;
         else if (!db.add(member))
             output.appendText(member.getFname() + " " + member.getLname() + " is already in the database.\n");
     }
@@ -169,7 +160,10 @@ public class GymManagerController {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open membership list");
         File file = fileChooser.showOpenDialog(null);
-        if (file != null) loadMemberData(file);
+        if (file != null) {
+            db.loadMemberData(file);
+            output.appendText(db.print("-list of members loaded-"));
+        }
     }
 
     /**
@@ -190,7 +184,11 @@ public class GymManagerController {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open class schedule");
         File file = fileChooser.showOpenDialog(null);
-        if (file != null) loadClassSchedule(file);
+        if (file != null) {
+            classes = new ClassSchedule();
+            classes = classes.loadClassSchedule(file);
+            printFitnessClasses("-Fitness classes loaded-\n");
+        }
     }
 
     /**
@@ -342,175 +340,6 @@ public class GymManagerController {
             output.appendText("Member database is empty!\n");
             return true;
         } else return false;
-    }
-
-    /**
-     * Loads historic member data from text file
-     * Sets oldMemberFlag to "true" then to "false" so addMember() doesn't calculate expire date
-     */
-    private void loadMemberData(File memberList) {
-        oldMemberFlag = true;
-        try {
-            Scanner memberScanner = new Scanner(memberList);
-            output.appendText("-list of members loaded-");
-            while (memberScanner.hasNextLine()) {
-                st = new StringTokenizer(memberScanner.nextLine());
-                addMember('M');
-            }
-            output.appendText("\n-end of list-\n\n");
-        } catch (FileNotFoundException e) {
-            output.setText("Error: Member data file not found.\n");
-        }
-        oldMemberFlag = false;
-    }
-
-//    /**
-//     * Determines the fitness class given the name of a fitness class.
-//     * @param className String containing the name of class to find.
-//     * @return FitnessClass object if class is found, null otherwise.
-//     */
-//    private FitnessClass determineClass(String className) {
-//        FitnessClass fitnessClass;
-//        switch (className) {
-//            case "PILATES":
-//                fitnessClass = new FitnessClass("PILATES");
-//                break;
-//            case "SPINNING":
-//                fitnessClass = new FitnessClass("SPINNING");
-//                break;
-//            case "CARDIO":
-//                fitnessClass = new FitnessClass("CARDIO");
-//                break;
-//            default:
-//                output.appendText(className + ": invalid fitness class!\n");
-//                return null;
-//        }
-//        return fitnessClass;
-//    }
-
-    /**
-     * Initializes fitness classes provided by the provided file.
-     */
-    private void loadClassSchedule(File fitnessSchedule) {
-        classes = new ClassSchedule();
-        classes = classes.loadClassSchedule(fitnessSchedule);
-        printFitnessClasses("-Fitness classes loaded-\n");
-//        try {
-//            Scanner fitnessScanner = new Scanner(fitnessSchedule);
-//            while (fitnessScanner.hasNextLine()) {
-//                String[] line = fitnessScanner.nextLine().split(" ");
-//                for (int i = 0; i < line.length - 1; i++) {
-//                    String instructor;
-//                    Time time;
-//                    Location location;
-//                    FitnessClass fitnessClass = determineClass(line[i].toUpperCase());
-//                    if (fitnessClass == null) return;
-//                    instructor = line[i + 1];
-//                    time = findTime(line[i + 2]);
-//                    location = findLocation(line[i + 3]);
-//                    if (location == null) {
-//                        output.appendText(location + " - invalid location!\n");
-//                        return;
-//                    }
-//                    fitnessClass.setInstructorName(instructor);
-//                    fitnessClass.setTime(time);
-//                    fitnessClass.setLocation(location);
-//                    classes.addFitnessClass(fitnessClass);
-//                    break;
-//                }
-//            }
-//            printFitnessClasses("-Fitness classes loaded-\n");
-//        } catch (FileNotFoundException e) {
-//            output.appendText("Error: Class schedule file not found.\n");
-//        }
-    }
-
-//    /**
-//     * Determines the time by being given a time of day, "MORNING", "AFTERNOON", "EVENING".
-//     * @param timeOfDay String representing the time of day.
-//     * @return Time object of the time of day based on given string.
-//     */
-//    private Time findTime(String timeOfDay) {
-//        timeOfDay = timeOfDay.toUpperCase();
-//        Time time = null;
-//        switch (timeOfDay) {
-//            case "MORNING":
-//                time = Time.MORNING;
-//                break;
-//            case "AFTERNOON":
-//                time = Time.AFTERNOON;
-//                break;
-//            case "EVENING":
-//                time = Time.EVENING;
-//                break;
-//        }
-//        return time;
-//    }
-
-    /**
-     * Continues reading member information from input, then calls for checks to ensure appropriate values for member
-     * fields. Determines membership tier (member, family, premium). Finally, sets values to appropriate member fields.
-     */
-    private void addMember(char tier) {
-        Member member = determineMembership(tier);
-        if (member == null) return;
-        member.setFname(st.nextToken());
-        member.setLname(st.nextToken());
-        member.setDob(new Date(st.nextToken()));
-        if (oldMemberFlag) member.setExpire(new Date(st.nextToken()));
-        String locationName = st.nextToken();
-        Location location = null;
-
-        if (!validDob(member)) return;
-
-        location = findLocation(locationName);
-        if (location == null) {
-            output.appendText(locationName + ": invalid location!\n");
-            return;
-        }
-        member.setLocation(location);
-
-        Date today = new Date();
-        Date expirationDate = member instanceof Premium ? today.addOneYear() : today.addThreeMonths();
-        if (!oldMemberFlag) member.setExpire(expirationDate);
-        if (!member.getExpire().isValid()) {
-            output.appendText("Expiration date " + member.getExpire() + ": invalid calendar date!\n");
-            return;
-        }
-
-        boolean memberAdded = db.add(member);
-        if (!oldMemberFlag && memberAdded)
-            output.appendText(member.getFname() + " " + member.getLname() + " added.");
-        else if (oldMemberFlag && memberAdded)
-            output.appendText("\n" + member.getFname() + " " + member.getLname() + " DOB "
-                    + member.getDob() + ", " + "Membership expires "
-                    + member.getExpire() + ", " + member.getLocation());
-        else if (!db.add(member))
-            output.appendText(member.getFname() + " " + member.getLname() + " is already in the database.\n");
-    }
-
-    /**
-     * Determines the membership tier given a character indicating the tier.
-     * M for member, F for family, and P for premium
-     * @param tier character indicating the level of membership.
-     * @return Member object if member tier is determined, null otherwise
-     */
-    private Member determineMembership(char tier) {
-        Member member;
-        switch (tier) {
-            case 'M':
-                member = new Member();
-                break;
-            case 'F':
-                member = new Family();
-                break;
-            case 'P':
-                member = new Premium();
-                break;
-            default:
-                return null;
-        }
-        return member;
     }
 
     /**
@@ -675,26 +504,6 @@ public class GymManagerController {
 
         Member memberFromDb = db.getMemberFromDb(guestSponsorInfo);
         output.appendText(fitnessClass.checkoutGuest(memberFromDb));
-    }
-
-    /**
-     * Checks that birthdate is a valid calendar date, is earlier than today, and is over the age of 18.
-     * @param member member whose birthdate we are testing for validity
-     * @return true if date of birth is valid, false otherwise.
-     */
-    private boolean validDob(Member member) {
-        Date today = new Date();
-        if (!member.getDob().isValid()) {
-            output.appendText("DOB " + member.getDob() + ": invalid calendar member.getDob()!\n");
-            return false;
-        } else if (member.getDob().compareTo(today) > 0) {
-            output.appendText("DOB " + member.getDob() + ": cannot be today or a future member.getDob()!\n");
-            return false;
-        } else if (!member.getDob().isOfAge()) {
-            output.appendText("DOB " + member.getDob() + ": must be 18 or older to join!\n");
-            return false;
-        }
-        return true;
     }
 
     /**

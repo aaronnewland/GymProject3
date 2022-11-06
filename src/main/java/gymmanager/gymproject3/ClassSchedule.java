@@ -2,7 +2,6 @@ package gymmanager.gymproject3;
 
 import java.io.FileNotFoundException;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 /**
@@ -81,7 +80,6 @@ public class ClassSchedule {
                 fitnessClass = new FitnessClass("CARDIO");
                 break;
             default:
-                //output.appendText(className + ": invalid fitness class!\n");
                 return null;
         }
         return fitnessClass;
@@ -152,7 +150,6 @@ public class ClassSchedule {
                     time = findTime(line[i + 2]);
                     location = findLocation(line[i + 3]);
                     if (location == null) {
-                        //output.appendText(location + " - invalid location!\n");
                         return null;
                     }
                     fitnessClass.setInstructorName(instructor);
@@ -162,9 +159,7 @@ public class ClassSchedule {
                     break;
                 }
             }
-            //printFitnessClasses("-Fitness classes loaded-\n");
         } catch (FileNotFoundException e) {
-            //output.appendText("Error: Class schedule file not found.\n");
         }
         return classList;
     }
