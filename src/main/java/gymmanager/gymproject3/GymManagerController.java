@@ -2,10 +2,10 @@ package gymmanager.gymproject3;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.time.LocalDate;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
@@ -232,12 +232,6 @@ public class GymManagerController {
         member.setDob(new Date(st.nextToken()));
         if (db.remove(member)) output.appendText(member.getFname() + " " + member.getLname() + " removed.");
         else output.appendText(member.getFname() + " " + member.getLname() + " is not in the database.");
-    }
-
-    @FXML
-    private void printMemberList() {
-        output.clear();
-        output.appendText(db.print());
     }
 
     /**
@@ -486,6 +480,8 @@ public class GymManagerController {
 
     @FXML
     protected void handleMembershipAdd() {
+        if (membershipFieldsMissing()) return;
+
         String firstName = mFirstName.getCharacters().toString();
         String lastName = mLastName.getCharacters().toString();
 
@@ -508,8 +504,7 @@ public class GymManagerController {
         else if (mPremiumMembershipOption.isSelected()) member = new Premium(firstName, lastName, dob, location);
         if (member == null) output.appendText("No membership type selected\n");
 
-        Date today = new Date();
-        Date expirationDate = member instanceof Premium ? today.addOneYear() : today.addThreeMonths();
+        Date expirationDate = member instanceof Premium ? new Date().addOneYear() : new Date().addThreeMonths();
         if (!oldMemberFlag) member.setExpire(expirationDate);
         if (!member.getExpire().isValid()) {
             output.appendText("Expiration date " + member.getExpire() + ": invalid calendar date!\n");
@@ -520,17 +515,39 @@ public class GymManagerController {
         if (!oldMemberFlag && memberAdded)
             output.appendText(member.getFname() + " " + member.getLname() + " added.\n");
         else if (oldMemberFlag && memberAdded)
-            output.appendText("\n" + member.getFname() + " " + member.getLname() + " DOB "
-                    + member.getDob() + ", " + "Membership expires "
-                    + member.getExpire() + ", " + member.getLocation() + "\n") ;
+            output.appendText("\n" + member.getFname() + " " + member.getLname() + " DOB " + member.getDob() + ", "
+                    + "Membership expires " + member.getExpire() + ", " + member.getLocation() + "\n") ;
         else if (!db.add(member))
             output.appendText(member.getFname() + " " + member.getLname() + " is already in the database.\n");
-        System.out.println(member);
     }
 
     @FXML
     protected void handleMembershipRemove() {
-        output.appendText("Membership remove\n");
+        String firstName = mFirstName.getCharacters().toString();
+        if (firstName.length() <= 0) {
+            output.appendText("Missing first name.\n");
+            return;
+        }
+        String lastName = mLastName.getCharacters().toString();
+        if (lastName.length() <= 0) {
+            output.appendText("Missing last name.\n");
+            return;
+        }
+        LocalDate mDobLocaleDate = mDob.getValue();
+        if (mDobLocaleDate == null) {
+            output.appendText("Missing date of birth.\n");
+            return;
+        }
+        String[] mDobTokens = mDob.getValue().toString().split("-");
+        String mDobYear = mDobTokens[0];
+        String mDobMonth = mDobTokens[1];
+        String mDobDay = mDobTokens[2];
+        Date dob = new Date(mDobMonth + "/" + mDobDay + "/" + mDobYear);
+        if (!validDob(dob)) return;
+
+        Member member = new Member(firstName, lastName, dob);
+        if (db.remove(member)) output.appendText(member.getFname() + " " + member.getLname() + " removed.\n");
+        else output.appendText(member.getFname() + " " + member.getLname() + " is not in the database.\n");
     }
 
     @FXML
@@ -586,6 +603,35 @@ public class GymManagerController {
     @FXML
     protected void handleInformationHubNextBill() {
         output.appendText("Membership Fee Next Bill\n");
+    }
+
+    @FXML
+    protected void clearOutput() {
+        output.clear();
+    }
+
+    private boolean membershipFieldsMissing() {
+        String firstName = mFirstName.getCharacters().toString();
+        if (firstName.length() <= 0) {
+            output.appendText("Missing first name.\n");
+            return true;
+        }
+        String lastName = mLastName.getCharacters().toString();
+        if (lastName.length() <= 0) {
+            output.appendText("Missing last name.\n");
+            return true;
+        }
+        LocalDate mDobLocaleDate = mDob.getValue();
+        if (mDobLocaleDate == null) {
+            output.appendText("Missing date of birth.\n");
+            return true;
+        }
+        String locationName = mLocation.getCharacters().toString();
+        if (locationName.length() <= 0) {
+            output.appendText("Location missing.\n");
+            return true;
+        }
+        return false;
     }
 
     private void printMembershipFields() {

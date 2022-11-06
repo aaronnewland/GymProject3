@@ -31,6 +31,19 @@ public class Member implements Comparable<Member> {
      * @param fname member first name.
      * @param lname member last name.
      * @param dob member date of birth.
+     */
+    public Member(String fname, String lname, Date dob) {
+        this.fname = fname;
+        this.lname = lname;
+        this.dob = dob;
+        this.location = null;
+    }
+
+    /**
+     * Creates new Member object with given values.
+     * @param fname member first name.
+     * @param lname member last name.
+     * @param dob member date of birth.
      * @param location member gym location.
      */
     public Member(String fname, String lname, Date dob, Location location) {

@@ -69,7 +69,7 @@
                                         </Label>
                                         <TextField fx:id="mFirstName" GridPane.columnIndex="1" />
                                         <TextField fx:id="mLastName" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                        <DatePicker fx:id="mDob" prefHeight="26.0" prefWidth="293.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                        <DatePicker fx:id="mDob" editable="false" prefHeight="26.0" prefWidth="293.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                         <TextField fx:id="mLocation" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                         <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                                             <children>
@@ -242,6 +242,7 @@
                                         </Menu>
                                     </menus>
                                 </MenuBar>
+                        <Button layoutX="403.0" layoutY="32.0" mnemonicParsing="false" onAction="#clearOutput" text="Clear Output" />
                             </children>
                         </AnchorPane>
                     </content>
