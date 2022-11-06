@@ -27,7 +27,7 @@ public class GymManagerController {
         try {
             File memberList = new File("memberList.txt");
             Scanner memberScanner = new Scanner(memberList);
-            //System.out.println("\n-list of members loaded-");
+            //output.appendText("\n-list of members loaded-");
             output.appendText("-list of members loaded-");
             while (memberScanner.hasNextLine()) {
                 st = new StringTokenizer(memberScanner.nextLine());
@@ -60,7 +60,7 @@ public class GymManagerController {
                 fitnessClass = new FitnessClass("CARDIO");
                 break;
             default:
-                System.out.println(className + ": invalid fitness class!");
+                output.appendText(className + ": invalid fitness class!");
                 return null;
         }
         return fitnessClass;
@@ -143,7 +143,7 @@ public class GymManagerController {
         String locationName = st.nextToken();
         Location location = null;
 
-        if (!validBirthDate(member)) return;
+        if (!validDob(member)) return;
 
         location = findLocation(locationName);
         if (location == null) {
@@ -230,8 +230,8 @@ public class GymManagerController {
         member.setFname(st.nextToken());
         member.setLname(st.nextToken());
         member.setDob(new Date(st.nextToken()));
-        if (db.remove(member)) System.out.println(member.getFname() + " " + member.getLname() + " removed.");
-        else System.out.println(member.getFname() + " " + member.getLname() + " is not in the database.");
+        if (db.remove(member)) output.appendText(member.getFname() + " " + member.getLname() + " removed.");
+        else output.appendText(member.getFname() + " " + member.getLname() + " is not in the database.");
     }
 
     @FXML
@@ -267,7 +267,7 @@ public class GymManagerController {
         memberInfo.setDob(new Date(st.nextToken()));
 
         if (!db.memberExists(memberInfo)) {
-            System.out.println(memberInfo.getFname() + " " + memberInfo.getLname() + " " + memberInfo.getDob() +
+            output.appendText(memberInfo.getFname() + " " + memberInfo.getLname() + " " + memberInfo.getDob() +
                     " is not in the database.");
             return;
         }
@@ -281,9 +281,9 @@ public class GymManagerController {
 
         String response = fitnessClass.checkIn(memberFromDb);
         if ((timeConflict && response.contains("already checked in.")) || !timeConflict)
-            System.out.println(response);
+            output.appendText(response);
         else
-            System.out.println("Time conflict - " + fitnessClass.printNoParticipants());
+            output.appendText("Time conflict - " + fitnessClass.printNoParticipants());
     }
 
     /**
@@ -300,13 +300,13 @@ public class GymManagerController {
         guestSponsor.setDob(new Date(st.nextToken()));
 
         if (!db.memberExists(guestSponsor)) {
-            System.out.println(guestSponsor.getFname() + " " + guestSponsor.getLname() + " " + guestSponsor.getDob() +
+            output.appendText(guestSponsor.getFname() + " " + guestSponsor.getLname() + " " + guestSponsor.getDob() +
                     " is not in the database.");
             return;
         }
 
         Member memberFromDb = db.getMemberFromDb(guestSponsor);
-        System.out.println(fitnessClass.checkInGuest(memberFromDb));
+        output.appendText(fitnessClass.checkInGuest(memberFromDb));
     }
 
     /**
@@ -322,18 +322,18 @@ public class GymManagerController {
         memberInfo.setDob(new Date(st.nextToken()));
 
         if (!memberInfo.getDob().isValid()) {
-            System.out.println("DOB " + memberInfo.getDob() + ": invalid calendar date!");
+            output.appendText("DOB " + memberInfo.getDob() + ": invalid calendar date!");
             return;
         }
 
         if (!db.memberExists(memberInfo)) {
-            System.out.println(memberInfo.getFname() + " " + memberInfo.getLname() + " " + memberInfo.getDob() +
+            output.appendText(memberInfo.getFname() + " " + memberInfo.getLname() + " " + memberInfo.getDob() +
                     " is not in the database.");
             return;
         }
 
         Member memberFromDb = db.getMemberFromDb(memberInfo);
-        System.out.println(fitnessClass.checkout(memberFromDb));
+        output.appendText(fitnessClass.checkout(memberFromDb));
     }
 
     /**
@@ -350,35 +350,55 @@ public class GymManagerController {
         guestSponsor.setDob(new Date(st.nextToken()));
 
         if (!guestSponsor.getDob().isValid()) {
-            System.out.println("DOB: " + guestSponsor.getDob() + " invalid calendar date!");
+            output.appendText("DOB: " + guestSponsor.getDob() + " invalid calendar date!");
             return;
         }
 
         if (!db.memberExists(guestSponsor)) {
-            System.out.println(guestSponsor.getFname() + " " + guestSponsor.getLname() + " " + guestSponsor.getDob() +
+            output.appendText(guestSponsor.getFname() + " " + guestSponsor.getLname() + " " + guestSponsor.getDob() +
                     " is not in the database.");
             return;
         }
 
         Member memberFromDb = db.getMemberFromDb(guestSponsor);
-        System.out.println(fitnessClass.checkoutGuest(memberFromDb));
+        output.appendText(fitnessClass.checkoutGuest(memberFromDb));
     }
 
     /**
      * Checks that birthdate is a valid calendar date, is earlier than today, and is over the age of 18.
-     * @param member member to get date of birth from.
+     * @param member member whose birthdate we are testing for validity
      * @return true if date of birth is valid, false otherwise.
      */
-    private boolean validBirthDate(Member member) {
+    private boolean validDob(Member member) {
         Date today = new Date();
         if (!member.getDob().isValid()) {
-            output.appendText("DOB " + member.getDob() + ": invalid calendar date!");
+            output.appendText("DOB " + member.getDob() + ": invalid calendar member.getDob()!");
             return false;
         } else if (member.getDob().compareTo(today) > 0) {
-            output.appendText("DOB " + member.getDob() + ": cannot be today or a future date!");
+            output.appendText("DOB " + member.getDob() + ": cannot be today or a future member.getDob()!");
             return false;
         } else if (!member.getDob().isOfAge()) {
             output.appendText("DOB " + member.getDob() + ": must be 18 or older to join!");
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Checks that birthdate is a valid calendar date, is earlier than today, and is over the age of 18.
+     * @param birthdate birthdate which we are testing for validity
+     * @return true if date of birth is valid, false otherwise.
+     */
+    private boolean validDob(Date birthdate) {
+        Date today = new Date();
+        if (!birthdate.isValid()) {
+            output.appendText("DOB " + birthdate + ": invalid calendar birthdate!\n");
+            return false;
+        } else if (birthdate.compareTo(today) > 0) {
+            output.appendText("DOB " + birthdate + ": cannot be today or a future birthdate!\n");
+            return false;
+        } else if (!birthdate.isOfAge()) {
+            output.appendText("DOB " + birthdate + ": must be 18 or older to join!\n");
             return false;
         }
         return true;
@@ -392,26 +412,26 @@ public class GymManagerController {
     private FitnessClass getFitnessClass() {
         String fitnessClassName = st.nextToken();
         if (!classNameExists(fitnessClassName)) {
-            System.out.println(fitnessClassName + " - class does not exist.");
+            output.appendText(fitnessClassName + " - class does not exist.");
             return null;
         }
 
         String instructor = st.nextToken();
         if (!instructorExists(instructor)) {
-            System.out.println(instructor + " - instructor does not exist.");
+            output.appendText(instructor + " - instructor does not exist.");
             return null;
         }
 
         String locationName = st.nextToken();
         Location location = findLocation(locationName);
         if (location == null) {
-            System.out.println(locationName + ": invalid location.");
+            output.appendText(locationName + ": invalid location.");
             return null;
         }
 
         FitnessClass fitnessClass = new FitnessClass(fitnessClassName, instructor, location);
         fitnessClass = classes.getFitnessClass(fitnessClass);
-        if (fitnessClass == null) System.out.println(fitnessClassName + " by " + instructor + " does not exist at " +
+        if (fitnessClass == null) output.appendText(fitnessClassName + " by " + instructor + " does not exist at " +
                 locationName);
 
         return fitnessClass;
@@ -445,7 +465,7 @@ public class GymManagerController {
      * Terminates program.
      */
     private void quitProgram() {
-        System.out.println("Gym Manager terminated.");
+        output.appendText("Gym Manager terminated.");
         System.exit(0);
     }
 
@@ -466,12 +486,51 @@ public class GymManagerController {
 
     @FXML
     protected void handleMembershipAdd() {
-        printMembershipFields();
+        String firstName = mFirstName.getCharacters().toString();
+        String lastName = mLastName.getCharacters().toString();
+
+        String[] mDobTokens = mDob.getValue().toString().split("-");
+        String mDobYear = mDobTokens[0];
+        String mDobMonth = mDobTokens[1];
+        String mDobDay = mDobTokens[2];
+        Date dob = new Date(mDobMonth + "/" + mDobDay + "/" + mDobYear);
+        if (!validDob(dob)) return;
+
+        Location location = findLocation(mLocation.getCharacters().toString());
+        if (location == null) {
+            output.appendText(mLocation.getCharacters().toString() + ": invalid location.\n");
+            return;
+        }
+
+        Member member = null;
+        if (mStandardMembershipOption.isSelected()) member = new Member(firstName, lastName, dob, location);
+        else if (mFamilyMembershipOption.isSelected()) member = new Family(firstName, lastName, dob, location);
+        else if (mPremiumMembershipOption.isSelected()) member = new Premium(firstName, lastName, dob, location);
+        if (member == null) output.appendText("No membership type selected\n");
+
+        Date today = new Date();
+        Date expirationDate = member instanceof Premium ? today.addOneYear() : today.addThreeMonths();
+        if (!oldMemberFlag) member.setExpire(expirationDate);
+        if (!member.getExpire().isValid()) {
+            output.appendText("Expiration date " + member.getExpire() + ": invalid calendar date!\n");
+            return;
+        }
+
+        boolean memberAdded = db.add(member);
+        if (!oldMemberFlag && memberAdded)
+            output.appendText(member.getFname() + " " + member.getLname() + " added.\n");
+        else if (oldMemberFlag && memberAdded)
+            output.appendText("\n" + member.getFname() + " " + member.getLname() + " DOB "
+                    + member.getDob() + ", " + "Membership expires "
+                    + member.getExpire() + ", " + member.getLocation() + "\n") ;
+        else if (!db.add(member))
+            output.appendText(member.getFname() + " " + member.getLname() + " is already in the database.\n");
+        System.out.println(member);
     }
 
     @FXML
     protected void handleMembershipRemove() {
-        output.appendText("Membership remove"  + "\n");
+        output.appendText("Membership remove\n");
     }
 
     @FXML
@@ -481,52 +540,52 @@ public class GymManagerController {
 
     @FXML
     protected void handleFitnessClassCheckout() {
-        output.appendText("Fitness Class Checkout"  + "\n");
+        output.appendText("Fitness Class Checkout\n");
     }
 
     @FXML
     protected void handleInformationHubPrint() {
-        output.appendText("Member DB Print "  + "\n");
+        output.appendText("Member DB Print\n");
     }
 
     @FXML
     protected void handleInformationHubPrintByCountyZip() {
-        output.appendText("Member DB Print by County & Zip"  + "\n");
+        output.appendText("Member DB Print by County & Zip\n");
     }
 
     @FXML
     protected void handleInformationHubPrintByLastFirst() {
-        output.appendText("Member DB Print by Last & First"  + "\n");
+        output.appendText("Member DB Print by Last & First\n");
     }
 
     @FXML
     protected void handleInformationHubPrintByExpiration() {
-        output.appendText("Member DB Print by Expiration"  + "\n");
+        output.appendText("Member DB Print by Expiration\n");
     }
 
     @FXML
     protected void handleInformationHubLoadMembershipList() {
-        output.appendText("Member DB Load Member List"  + "\n");
+        output.appendText("Member DB Load Member List\n");
     }
 
     @FXML
     protected void handleInformationHubShowAllClasses() {
-        output.appendText("Class Schedule Show All Classes"  + "\n");
+        output.appendText("Class Schedule Show All Classes\n");
     }
 
     @FXML
     protected void handleInformationHubLoadClassSchedule() {
-        output.appendText("Class Schedule Load Class Schedule from File"  + "\n");
+        output.appendText("Class Schedule Load Class Schedule from File\n");
     }
 
     @FXML
     protected void handleInformationHubFirstBill() {
-        output.appendText("Membership Fee First Bill"  + "\n");
+        output.appendText("Membership Fee First Bill\n");
     }
 
     @FXML
     protected void handleInformationHubNextBill() {
-        output.appendText("Membership Fee Next Bill"  + "\n");
+        output.appendText("Membership Fee Next Bill\n");
     }
 
     private void printMembershipFields() {
