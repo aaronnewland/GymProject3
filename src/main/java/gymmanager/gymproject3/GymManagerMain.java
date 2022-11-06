@@ -6,7 +6,10 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-
+/**
+ * Application driver
+ * @author Aaron Newland, Dylan Pina
+ */
 public class GymManagerMain extends Application {
     @Override
     public void start(Stage stage) throws IOException {

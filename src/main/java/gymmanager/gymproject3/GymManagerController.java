@@ -8,12 +8,341 @@ import java.util.StringTokenizer;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.FileChooser;
-
+/**
+ * Controller for GymManager.fxml
+ * @author Aaron Newland, Dylan Pina
+ */
 public class GymManagerController {
     StringTokenizer st;
     private boolean oldMemberFlag = false;
     MemberDatabase db = new MemberDatabase();
     ClassSchedule classes;
+
+    @FXML
+    private TextArea output;
+    @FXML
+    private TextField mFirstName, mLastName, mLocation;
+    @FXML
+    private DatePicker mDob;
+    @FXML
+    private RadioButton mStandardMembershipOption, mFamilyMembershipOption, mPremiumMembershipOption;
+    @FXML
+    private TextField fcFirstName, fcLastName, fcClassLocation, fcClassName, fcInstructorName;
+    @FXML
+    DatePicker fcDob;
+    @FXML
+    private RadioButton fcMemberOption, fcGuestOption;
+
+    /**
+     * Action handler for the 'Add' button in the Membership form.
+     * Adds a member to the member database with the form values.
+     */
+    @FXML
+    protected void handleMembershipAdd() {
+        if (membershipAddFieldsMissing()) return;
+
+        String firstName = mFirstName.getCharacters().toString().trim();
+        String lastName = mLastName.getCharacters().toString().trim();
+
+        Date dob = new Date(mDob.getEditor().getCharacters().toString().trim());
+        if (!validDob(dob)) return;
+
+        Location location = findLocation(mLocation.getCharacters().toString().trim());
+        if (location == null) {
+            output.appendText(mLocation.getCharacters().toString() + ": invalid location.\n");
+            return;
+        }
+
+        Member member = null;
+        if (mStandardMembershipOption.isSelected()) member = new Member(firstName, lastName, dob, location);
+        else if (mFamilyMembershipOption.isSelected()) member = new Family(firstName, lastName, dob, location);
+        else if (mPremiumMembershipOption.isSelected()) member = new Premium(firstName, lastName, dob, location);
+
+        Date expirationDate = member instanceof Premium ? new Date().addOneYear() : new Date().addThreeMonths();
+        if (!oldMemberFlag) member.setExpire(expirationDate);
+        if (!member.getExpire().isValid()) {
+            output.appendText("Expiration date " + member.getExpire() + ": invalid calendar date!\n");
+            return;
+        }
+
+        boolean memberAdded = db.add(member);
+        if (!oldMemberFlag && memberAdded)
+            output.appendText(member.getFname() + " " + member.getLname() + " added.\n");
+        else if (oldMemberFlag && memberAdded)
+            output.appendText("\n" + member.getFname() + " " + member.getLname() + " DOB " + member.getDob() + ", "
+                    + "Membership expires " + member.getExpire() + ", " + member.getLocation() + "\n") ;
+        else if (!db.add(member))
+            output.appendText(member.getFname() + " " + member.getLname() + " is already in the database.\n");
+    }
+
+    /**
+     * Action handler for the 'Remove' button in the Membership form.
+     * Removes the specified member from the member database.
+     */
+    @FXML
+    protected void handleMembershipRemove() {
+        if (membershipRemoveFieldsMissing() || memberDbEmpty()) return;
+
+        String firstName = mFirstName.getCharacters().toString().trim();
+        String lastName = mLastName.getCharacters().toString().trim();
+        Date dob = new Date(mDob.getEditor().getCharacters().toString().trim());
+        if (!validDob(dob)) return;
+
+        Member member = new Member(firstName, lastName, dob);
+        if (db.remove(member)) output.appendText(member.getFname() + " " + member.getLname() + " removed.\n");
+        else output.appendText(member.getFname() + " " + member.getLname() + " is not in the database.\n");
+    }
+
+    /**
+     * Action handler for the 'Check In' button in the Fitness Class form.
+     * Checks in a member into a fitness class.
+     */
+    @FXML
+    protected void handleFitnessClassCheckIn() {
+        if (fitnessClassCheckInFieldsMissing()) return;
+        if (fcMemberOption.isSelected()) checkIn();
+        else if (fcGuestOption.isSelected()) checkInGuests();
+    }
+
+    /**
+     * Action handler for the 'Checkout' button in the Fitness Class form.
+     * Checks out a member from a fitness class.
+     */
+    @FXML
+    protected void handleFitnessClassCheckout() {
+        if (fitnessClassCheckoutFieldsMissing() || memberDbEmpty()) return;
+        if (fcMemberOption.isSelected()) checkout();
+        else if (fcGuestOption.isSelected()) checkoutGuests();
+    }
+
+    /**
+     * Action handler for the 'Print' menu option under the 'Member Database' menu in the Information Hub.
+     * Prints a list of all members in the member database.
+     */
+    @FXML
+    protected void handleInformationHubPrint() {
+        if (!memberDbEmpty()) output.appendText(db.print() + "\n");
+    }
+
+    /**
+     * Action handler for the 'Print by County/Zipcode' menu option under the 'Member Database' menu in the Information Hub.
+     * Prints a list of all members in the member database sorted by county then zipcode.
+     */
+    @FXML
+    protected void handleInformationHubPrintByCountyZip() {
+        if (!memberDbEmpty()) output.appendText(db.printByCounty()  + "\n");
+    }
+
+    /**
+     * Action handler for the 'Print by Last/First Names' menu option under the 'Member Database' menu in the Information Hub.
+     * Prints a list of all members in the member database sorted by last and first name.
+     */
+    @FXML
+    protected void handleInformationHubPrintByLastFirst() {
+        if (!memberDbEmpty()) output.appendText(db.printByName()  + "\n");
+    }
+
+    /**
+     * Action handler for the 'Print by Expiration Date' menu option under the 'Member Database' menu in the Information Hub.
+     * Prints a list of all members in the member database sorted by their expiration dates.
+     */
+    @FXML
+    protected void handleInformationHubPrintByExpiration() {
+        if (!memberDbEmpty()) output.appendText(db.printByExpirationDate() + "\n");
+    }
+
+    /**
+     * Action handler for the 'Print with Fees' menu option under the 'Member Database' menu in the Information Hub.
+     * Prints a list of all members in the member database along with their membership fees.
+     */
+    @FXML
+    protected void handleInformationHubPrintFees() {
+        if (!memberDbEmpty()) output.appendText(db.printWithFees());
+    }
+
+    /**
+     * Action handler for the 'Load Member List from File' menu option under the 'Member Database' menu in the Information Hub.
+     * Prompts the user to input a file which is used to load members into the member database.
+     */
+    @FXML
+    protected void handleInformationHubLoadMembershipList() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open membership list");
+        File file = fileChooser.showOpenDialog(null);
+        if (file != null) loadMemberData(file);
+    }
+
+    /**
+     * Action handler for the 'Show All Classes' menu option under the 'Classes Schedule' menu in the Information Hub.
+     * Prints out list of fitness classes, instructor name, time, and participants (if any).
+     */
+    @FXML
+    protected void handleInformationHubShowAllClasses() {
+        printFitnessClasses("-Fitness classes-\n");
+    }
+
+    /**
+     * Action handler for the 'Load Class Schedule from File' menu option under the 'Classes Schedule' menu in the Information Hub.
+     * Prompts the user to input a file which is used to load fitness classes.
+     */
+    @FXML
+    protected void handleInformationHubLoadClassSchedule() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open class schedule");
+        File file = fileChooser.showOpenDialog(null);
+        if (file != null) loadClassSchedule(file);
+    }
+
+    /**
+     * Action handler for the 'Clear Output' button in the Information Hub.
+     * Clears all content displayed in the Output text area.
+     */
+    @FXML
+    protected void clearOutput() {
+        output.clear();
+    }
+
+    /**
+     * Checks that all required fields for adding a member in the Membership form have been supplied values
+     * @return true if all required fields for adding a member have been supplied values
+     */
+    private boolean membershipAddFieldsMissing() {
+        String firstName = mFirstName.getCharacters().toString();
+        if (firstName.length() == 0) {
+            output.appendText("Missing first name.\n");
+            return true;
+        }
+        String lastName = mLastName.getCharacters().toString();
+        if (lastName.length() == 0) {
+            output.appendText("Missing last name.\n");
+            return true;
+        }
+        String mDobLocaleDate = mDob.getEditor().getCharacters().toString();
+        if (mDobLocaleDate.length() == 0) {
+            output.appendText("Missing date of birth.\n");
+            return true;
+        }
+        String locationName = mLocation.getCharacters().toString();
+        if (locationName.length() == 0) {
+            output.appendText("Location missing.\n");
+            return true;
+        }
+        if (!mStandardMembershipOption.isSelected() && !mFamilyMembershipOption.isSelected() &&
+                !mPremiumMembershipOption.isSelected()) {
+            output.appendText("Membership type missing.\n");
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Checks that all required fields for removing a member in the Membership form have been supplied values
+     * @return true if all required fields for removing a member have been supplied values
+     */
+    private boolean membershipRemoveFieldsMissing() {
+        String firstName = mFirstName.getCharacters().toString();
+        if (firstName.length() == 0) {
+            output.appendText("Missing first name.\n");
+            return true;
+        }
+        String lastName = mLastName.getCharacters().toString();
+        if (lastName.length() == 0) {
+            output.appendText("Missing last name.\n");
+            return true;
+        }
+        String mDobLocaleDate = mDob.getEditor().getCharacters().toString();
+        if (mDobLocaleDate.length() == 0) {
+            output.appendText("Missing date of birth.\n");
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Checks that all required fields for checking in a member or guest in the Fitness Class form have been supplied values
+     * @return true if all required fields for checking in a member or guest have been supplied values
+     */
+    private boolean fitnessClassCheckInFieldsMissing() {
+        String firstName = fcFirstName.getCharacters().toString();
+        if (firstName.length() == 0) {
+            output.appendText("Missing first name.\n");
+            return true;
+        }
+        String lastName = fcLastName.getCharacters().toString();
+        if (lastName.length() == 0) {
+            output.appendText("Missing last name.\n");
+            return true;
+        }
+        String mDobLocaleDate = fcDob.getEditor().getCharacters().toString();
+        if (mDobLocaleDate.length() == 0) {
+            output.appendText("Missing date of birth.\n");
+            return true;
+        }
+        String classLocationName = fcClassLocation.getCharacters().toString();
+        if (classLocationName.length() == 0) {
+            output.appendText("Class location missing.\n");
+            return true;
+        }
+        String className = fcClassName.getCharacters().toString();
+        if (className.length() == 0) {
+            output.appendText("Class name missing.\n");
+            return true;
+        }
+        String instructorName = fcInstructorName.getCharacters().toString();
+        if (instructorName.length() == 0) {
+            output.appendText("Instructor name missing.\n");
+            return true;
+        }
+        if (!fcMemberOption.isSelected() && !fcGuestOption.isSelected()) {
+            output.appendText("Member type missing.\n");
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Checks that all required fields for checking out a member or guest in the Fitness Class form have been supplied values
+     * @return true if all required fields for checking out a member or guest have been supplied values
+     */
+    private boolean fitnessClassCheckoutFieldsMissing() {
+        String firstName = fcFirstName.getCharacters().toString();
+        if (firstName.length() == 0) {
+            output.appendText("Missing first name.\n");
+            return true;
+        }
+        String lastName = fcLastName.getCharacters().toString();
+        if (lastName.length() == 0) {
+            output.appendText("Missing last name.\n");
+            return true;
+        }
+        String mDobLocaleDate = fcDob.getEditor().getCharacters().toString();
+        if (mDobLocaleDate.length() == 0) {
+            output.appendText("Missing date of birth.\n");
+            return true;
+        }
+        String className = fcClassName.getCharacters().toString();
+        if (className.length() == 0) {
+            output.appendText("Class name missing.\n");
+            return true;
+        }
+        String instructorName = fcInstructorName.getCharacters().toString();
+        if (instructorName.length() == 0) {
+            output.appendText("Instructor name missing.\n");
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Checks to see if the member database is empty
+     * @returns true if the member database is empty
+     */
+    private boolean memberDbEmpty() {
+        if (db.memberDbEmpty()) {
+            output.appendText("Member database is empty!\n");
+            return true;
+        } else return false;
+    }
 
     /**
      * Loads historic member data from text file
@@ -60,8 +389,7 @@ public class GymManagerController {
     }
 
     /**
-     * Initializes fitness classes: Pilates, Spinning, and Cardio by reading class data from text
-     * file "classSchedule.txt".
+     * Initializes fitness classes provided by the provided file.
      */
     private void loadClassSchedule(File fitnessSchedule) {
         classes = new ClassSchedule();
@@ -208,18 +536,6 @@ public class GymManagerController {
                 break;
         }
         return location;
-    }
-
-    /**
-     * Checks if member is in database, if true then the member gets removed.
-     */
-    private void removeMember() {
-        Member member = new Member();
-        member.setFname(st.nextToken());
-        member.setLname(st.nextToken());
-        member.setDob(new Date(st.nextToken()));
-        if (db.remove(member)) output.appendText(member.getFname() + " " + member.getLname() + " removed.\n");
-        else output.appendText(member.getFname() + " " + member.getLname() + " is not in the database.\n");
     }
 
     /**
@@ -400,39 +716,6 @@ public class GymManagerController {
     }
 
     /**
-     * Continues reading from input to get information of fitness class to be retrieved. Then performs checks to ensure
-     * that class is valid.
-     * @return FitnessClass if the class exists, null otherwise.
-     */
-    private FitnessClass getFitnessClass() {
-        String fitnessClassName = st.nextToken();
-        if (!classNameExists(fitnessClassName)) {
-            output.appendText(fitnessClassName + " - class does not exist.\n");
-            return null;
-        }
-
-        String instructor = st.nextToken();
-        if (!instructorExists(instructor)) {
-            output.appendText(instructor + " - instructor does not exist.\n");
-            return null;
-        }
-
-        String locationName = st.nextToken();
-        Location location = findLocation(locationName);
-        if (location == null) {
-            output.appendText(locationName + ": invalid location.\n");
-            return null;
-        }
-
-        FitnessClass fitnessClass = new FitnessClass(fitnessClassName, instructor, location);
-        fitnessClass = classes.getFitnessClass(fitnessClass);
-        if (fitnessClass == null) output.appendText(fitnessClassName + " by " + instructor + " does not exist at " +
-                locationName + "\n");
-
-        return fitnessClass;
-    }
-
-    /**
      * Performs checks to ensures that class is valid.
      * @return FitnessClass if the class exists, null otherwise.
      */
@@ -483,292 +766,5 @@ public class GymManagerController {
             if ((fc != null) && (fc.getClassName().equalsIgnoreCase(className)))
                 return true;
         return false;
-    }
-
-    /**
-     * Terminates program.
-     */
-    private void quitProgram() {
-        output.appendText("Gym Manager terminated.\n");
-        System.exit(0);
-    }
-
-    @FXML
-    private TextArea output;
-    @FXML
-    private TextField mFirstName, mLastName, mLocation;
-    @FXML
-    private DatePicker mDob;
-    @FXML
-    private RadioButton mStandardMembershipOption, mFamilyMembershipOption, mPremiumMembershipOption;
-    @FXML
-    private TextField fcFirstName, fcLastName, fcClassLocation, fcClassName, fcInstructorName;
-    @FXML
-    DatePicker fcDob;
-    @FXML
-    private RadioButton fcMemberOption, fcGuestOption;
-
-    @FXML
-    protected void handleMembershipAdd() {
-        if (membershipAddFieldsMissing()) return;
-
-        String firstName = mFirstName.getCharacters().toString().trim();
-        String lastName = mLastName.getCharacters().toString().trim();
-
-        Date dob = new Date(mDob.getEditor().getCharacters().toString().trim());
-        if (!validDob(dob)) return;
-
-        Location location = findLocation(mLocation.getCharacters().toString().trim());
-        if (location == null) {
-            output.appendText(mLocation.getCharacters().toString() + ": invalid location.\n");
-            return;
-        }
-
-        Member member = null;
-        if (mStandardMembershipOption.isSelected()) member = new Member(firstName, lastName, dob, location);
-        else if (mFamilyMembershipOption.isSelected()) member = new Family(firstName, lastName, dob, location);
-        else if (mPremiumMembershipOption.isSelected()) member = new Premium(firstName, lastName, dob, location);
-
-        Date expirationDate = member instanceof Premium ? new Date().addOneYear() : new Date().addThreeMonths();
-        if (!oldMemberFlag) member.setExpire(expirationDate);
-        if (!member.getExpire().isValid()) {
-            output.appendText("Expiration date " + member.getExpire() + ": invalid calendar date!\n");
-            return;
-        }
-
-        boolean memberAdded = db.add(member);
-        if (!oldMemberFlag && memberAdded)
-            output.appendText(member.getFname() + " " + member.getLname() + " added.\n");
-        else if (oldMemberFlag && memberAdded)
-            output.appendText("\n" + member.getFname() + " " + member.getLname() + " DOB " + member.getDob() + ", "
-                    + "Membership expires " + member.getExpire() + ", " + member.getLocation() + "\n") ;
-        else if (!db.add(member))
-            output.appendText(member.getFname() + " " + member.getLname() + " is already in the database.\n");
-    }
-
-    @FXML
-    protected void handleMembershipRemove() {
-        if (membershipRemoveFieldsMissing() || memberDbEmpty()) return;
-
-        String firstName = mFirstName.getCharacters().toString().trim();
-        String lastName = mLastName.getCharacters().toString().trim();
-        Date dob = new Date(mDob.getEditor().getCharacters().toString().trim());
-        if (!validDob(dob)) return;
-
-        Member member = new Member(firstName, lastName, dob);
-        if (db.remove(member)) output.appendText(member.getFname() + " " + member.getLname() + " removed.\n");
-        else output.appendText(member.getFname() + " " + member.getLname() + " is not in the database.\n");
-    }
-
-    @FXML
-    protected void handleFitnessClassCheckIn() {
-        if (fitnessClassCheckInFieldsMissing()) return;
-        if (fcMemberOption.isSelected()) checkIn();
-        else if (fcGuestOption.isSelected()) checkInGuests();
-    }
-
-    @FXML
-    protected void handleFitnessClassCheckout() {
-        if (fitnessClassCheckoutFieldsMissing() || memberDbEmpty()) return;
-        if (fcMemberOption.isSelected()) checkout();
-        else if (fcGuestOption.isSelected()) checkoutGuests();
-    }
-
-    @FXML
-    protected void handleInformationHubPrint() {
-        if (!memberDbEmpty()) output.appendText(db.print() + "\n");
-    }
-
-    @FXML
-    protected void handleInformationHubPrintByCountyZip() {
-        if (!memberDbEmpty()) output.appendText(db.printByCounty()  + "\n");
-    }
-
-    @FXML
-    protected void handleInformationHubPrintByLastFirst() {
-        if (!memberDbEmpty()) output.appendText(db.printByName()  + "\n");
-    }
-
-    @FXML
-    protected void handleInformationHubPrintByExpiration() {
-        if (!memberDbEmpty()) output.appendText(db.printByExpirationDate() + "\n");
-    }
-
-    @FXML
-    protected void handleInformationHubLoadMembershipList() {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Open membership list");
-        File file = fileChooser.showOpenDialog(null);
-        if (file != null) loadMemberData(file);
-    }
-
-    @FXML
-    protected void handleInformationHubShowAllClasses() {
-        printFitnessClasses("-Fitness classes-\n");
-    }
-
-    @FXML
-    protected void handleInformationHubLoadClassSchedule() {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Open class schedule");
-        File file = fileChooser.showOpenDialog(null);
-        if (file != null) loadClassSchedule(file);
-    }
-
-    @FXML
-    protected void handleInformationHubFirstBill() {
-        output.appendText("Membership Fee First Bill\n");
-    }
-
-    @FXML
-    protected void handleInformationHubNextBill() {
-        output.appendText("Membership Fee Next Bill\n");
-    }
-
-    @FXML
-    protected void clearOutput() {
-        output.clear();
-    }
-
-    private boolean membershipAddFieldsMissing() {
-        String firstName = mFirstName.getCharacters().toString();
-        if (firstName.length() == 0) {
-            output.appendText("Missing first name.\n");
-            return true;
-        }
-        String lastName = mLastName.getCharacters().toString();
-        if (lastName.length() == 0) {
-            output.appendText("Missing last name.\n");
-            return true;
-        }
-        String mDobLocaleDate = mDob.getEditor().getCharacters().toString();
-        if (mDobLocaleDate.length() == 0) {
-            output.appendText("Missing date of birth.\n");
-            return true;
-        }
-        String locationName = mLocation.getCharacters().toString();
-        if (locationName.length() == 0) {
-            output.appendText("Location missing.\n");
-            return true;
-        }
-        if (!mStandardMembershipOption.isSelected() && !mFamilyMembershipOption.isSelected() &&
-                !mPremiumMembershipOption.isSelected()) {
-            output.appendText("Membership type missing.\n");
-            return true;
-        }
-        return false;
-    }
-
-    private boolean membershipRemoveFieldsMissing() {
-        String firstName = mFirstName.getCharacters().toString();
-        if (firstName.length() == 0) {
-            output.appendText("Missing first name.\n");
-            return true;
-        }
-        String lastName = mLastName.getCharacters().toString();
-        if (lastName.length() == 0) {
-            output.appendText("Missing last name.\n");
-            return true;
-        }
-        String mDobLocaleDate = mDob.getEditor().getCharacters().toString();
-        if (mDobLocaleDate.length() == 0) {
-            output.appendText("Missing date of birth.\n");
-            return true;
-        }
-        return false;
-    }
-
-    private boolean fitnessClassCheckInFieldsMissing() {
-        String firstName = fcFirstName.getCharacters().toString();
-        if (firstName.length() == 0) {
-            output.appendText("Missing first name.\n");
-            return true;
-        }
-        String lastName = fcLastName.getCharacters().toString();
-        if (lastName.length() == 0) {
-            output.appendText("Missing last name.\n");
-            return true;
-        }
-        String mDobLocaleDate = fcDob.getEditor().getCharacters().toString();
-        if (mDobLocaleDate.length() == 0) {
-            output.appendText("Missing date of birth.\n");
-            return true;
-        }
-        String classLocationName = fcClassLocation.getCharacters().toString();
-        if (classLocationName.length() == 0) {
-            output.appendText("Class location missing.\n");
-            return true;
-        }
-        String className = fcClassName.getCharacters().toString();
-        if (className.length() == 0) {
-            output.appendText("Class name missing.\n");
-            return true;
-        }
-        String instructorName = fcInstructorName.getCharacters().toString();
-        if (instructorName.length() == 0) {
-            output.appendText("Instructor name missing.\n");
-            return true;
-        }
-        if (!fcMemberOption.isSelected() && !fcGuestOption.isSelected()) {
-            output.appendText("Member type missing.\n");
-            return true;
-        }
-        return false;
-    }
-    private boolean fitnessClassCheckoutFieldsMissing() {
-        String firstName = fcFirstName.getCharacters().toString();
-        if (firstName.length() == 0) {
-            output.appendText("Missing first name.\n");
-            return true;
-        }
-        String lastName = fcLastName.getCharacters().toString();
-        if (lastName.length() == 0) {
-            output.appendText("Missing last name.\n");
-            return true;
-        }
-        String mDobLocaleDate = fcDob.getEditor().getCharacters().toString();
-        if (mDobLocaleDate.length() == 0) {
-            output.appendText("Missing date of birth.\n");
-            return true;
-        }
-        String className = fcClassName.getCharacters().toString();
-        if (className.length() == 0) {
-            output.appendText("Class name missing.\n");
-            return true;
-        }
-        String instructorName = fcInstructorName.getCharacters().toString();
-        if (instructorName.length() == 0) {
-            output.appendText("Instructor name missing.\n");
-            return true;
-        }
-        return false;
-    }
-
-    private void printMembershipFields() {
-        output.appendText("First Name: " + mFirstName.getCharacters() + "\n");
-        output.appendText("Last Name: " + mLastName.getCharacters() + "\n");
-        output.appendText("Date of Birth: " + mDob.getValue() + "\n");
-        output.appendText("Location: " + mLocation.getCharacters() + "\n");
-        output.appendText("Standard Membership Option Selected?: " + mStandardMembershipOption.isSelected() + "\n");
-        output.appendText("Family Membership Option Selected?: " + mFamilyMembershipOption.isSelected() + "\n");
-        output.appendText("Premium Membership Option Selected?: " + mPremiumMembershipOption.isSelected() + "\n");
-    }
-
-    private void printFitnessClassFields() {
-        output.appendText("First Name: " + fcFirstName.getCharacters() + "\n");
-        output.appendText("Last Name: " + fcLastName.getCharacters() + "\n");
-        output.appendText("Date of Birth: " + fcDob.getValue() + "\n");
-        output.appendText("Class Location: " + fcClassLocation.getCharacters() + "\n");
-        output.appendText("Class Name: " + fcClassName.getCharacters() + "\n");
-        output.appendText("Instructor Name: " + fcInstructorName.getCharacters() + "\n");
-        output.appendText("Member Option Selected?: " + fcMemberOption.isSelected() + "\n");
-        output.appendText("Guest Option Selected?: " + fcGuestOption.isSelected() + "\n");
-    }
-
-    private boolean memberDbEmpty() {
-        if (db.memberDbEmpty()) {
-            output.appendText("Member database is empty!\n");
-            return true;
-        } else return false;
     }
 }

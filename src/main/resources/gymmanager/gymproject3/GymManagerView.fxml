@@ -215,9 +215,9 @@
                 </Tab>
                 <Tab text="Information Hub">
                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="94.0" prefWidth="565.0">
                             <children>
-                                <MenuBar layoutX="31.0" layoutY="30.0" prefHeight="28.0" prefWidth="372.0">
+                                <MenuBar layoutX="121.0" layoutY="49.0" prefHeight="28.0" prefWidth="225.0">
                                     <menus>
                                         <Menu mnemonicParsing="false" text="Member Database">
                                             <items>
@@ -225,6 +225,7 @@
                                                 <MenuItem mnemonicParsing="false" onAction="#handleInformationHubPrintByCountyZip" text="Print by County/Zipcode" />
                                                 <MenuItem mnemonicParsing="false" onAction="#handleInformationHubPrintByLastFirst" text="Print by Last/First Names" />
                                                 <MenuItem mnemonicParsing="false" onAction="#handleInformationHubPrintByExpiration" text="Print by Expiration Date" />
+                                    <MenuItem mnemonicParsing="false" onAction="#handleInformationHubPrintFees" text="Print with Fees" />
                                                 <MenuItem mnemonicParsing="false" onAction="#handleInformationHubLoadMembershipList" text="Load member list from file" />
                                             </items>
                                         </Menu>
@@ -234,15 +235,9 @@
                                                 <MenuItem mnemonicParsing="false" onAction="#handleInformationHubLoadClassSchedule" text="Load class schedule from file" />
                                             </items>
                                         </Menu>
-                                        <Menu mnemonicParsing="false" text="Membership Fee">
-                                            <items>
-                                                <MenuItem mnemonicParsing="false" onAction="#handleInformationHubFirstBill" text="First bill" />
-                                                <MenuItem mnemonicParsing="false" onAction="#handleInformationHubNextBill" text="Next bill" />
-                                            </items>
-                                        </Menu>
                                     </menus>
                                 </MenuBar>
-                        <Button layoutX="403.0" layoutY="32.0" mnemonicParsing="false" onAction="#clearOutput" text="Clear Output" />
+                        <Button layoutX="346.0" layoutY="51.0" mnemonicParsing="false" onAction="#clearOutput" text="Clear Output" />
                             </children>
                         </AnchorPane>
                     </content>
@@ -251,7 +246,7 @@
         </TabPane>
     </center>
     <bottom>
-        <TextArea fx:id="output" editable="false" maxWidth="1.7976931348623157E308" prefHeight="161.0" prefWidth="565.0" wrapText="true" BorderPane.alignment="CENTER">
+        <TextArea fx:id="output" editable="false" maxWidth="1.7976931348623157E308" prefHeight="160.0" prefWidth="565.0" wrapText="true" BorderPane.alignment="CENTER">
             <padding>
                 <Insets top="10.0" />
             </padding>
