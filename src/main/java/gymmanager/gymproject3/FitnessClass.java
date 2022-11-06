@@ -56,13 +56,13 @@ public class FitnessClass {
      */
     public String checkIn(Member member) {
         if (!member.getDob().isValid())
-            return "DOB: " + member.getDob() + " invalid calendar date!";
+            return "DOB: " + member.getDob() + " invalid calendar date!\n";
 
         if (member.getExpire().isExpired())
-            return member.getFname() + " " + member.getLname() + " " + member.getDob() + " membership expired.";
+            return member.getFname() + " " + member.getLname() + " " + member.getDob() + " membership expired.\n";
 
         if (participantCheckedIn(member))
-            return member.getFname() + " " + member.getLname() + " already checked in.";
+            return member.getFname() + " " + member.getLname() + " already checked in.\n";
 
         if (!(member instanceof Family))
             if (!(member.getLocation().equals(getLocation())))
@@ -110,13 +110,13 @@ public class FitnessClass {
      */
     public String checkout(Member member) {
         if (!member.getDob().isValid())
-            return "DOB " + member.getDob() + ": invalid calendar date!";
+            return "DOB " + member.getDob() + ": invalid calendar date!\n";
 
         if (!participantCheckedIn(member))
-            return member.getFname() + " " + member.getLname() + " did not check in.";
+            return member.getFname() + " " + member.getLname() + " did not check in.\n";
 
         if (member.getExpire().isExpired())
-            return member.getFname() + " " + member.getLname() + " " + member.getDob() + " membership expired.";
+            return member.getFname() + " " + member.getLname() + " " + member.getDob() + " membership expired.\n";
 
         int participantIndex = getParticipantIndex(member);
         Member[] newList = new Member[participants.length];
@@ -126,7 +126,7 @@ public class FitnessClass {
             else newList[i] = participants[i];
         participants = newList;
 
-        return member.getFname() + " " + member.getLname() + " done with the class.";
+        return member.getFname() + " " + member.getLname() + " done with the class.\n";
     }
 
     /**
@@ -136,25 +136,25 @@ public class FitnessClass {
      */
     public String checkoutGuest(Member member) {
         if (!member.getDob().isValid())
-            return "DOB " + member.getDob() + ": invalid calendar date!";
+            return "DOB " + member.getDob() + ": invalid calendar date!\n";
 
         if (member.getExpire().isExpired())
-            return member.getFname() + " " + member.getLname() + " " + member.getDob() + " membership expired.";
+            return member.getFname() + " " + member.getLname() + " " + member.getDob() + " membership expired.\n";
 
         if (!guestCheckedIn(member))
-            return member.getFname() + " " + member.getLname() + " Guest did not check in.";
+            return member.getFname() + " " + member.getLname() + " Guest did not check in.\n";
 
         int guestIndex = getGuestIndex(member);
 
         Member[] newList = new Member[guests.length];
         guestSize--;
-        for (int i = 0; i < guestSize; i++)
+        for (int i = 0; i < newList.length; i++)
             if (i == guestIndex) newList[i] = guests[i++ + 1];
             else newList[i] = guests[i];
         guests = newList;
 
         ((Family) member).incrementGuestPass();
-        return member.getFname() + " " + member.getLname() + " Guest done with the class.";
+        return member.getFname() + " " + member.getLname() + " Guest done with the class.\n";
     }
 
     /**
