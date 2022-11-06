@@ -364,86 +364,88 @@ public class GymManagerController {
         oldMemberFlag = false;
     }
 
-    /**
-     * Determines the fitness class given the name of a fitness class.
-     * @param className String containing the name of class to find.
-     * @return FitnessClass object if class is found, null otherwise.
-     */
-    private FitnessClass determineClass(String className) {
-        FitnessClass fitnessClass;
-        switch (className) {
-            case "PILATES":
-                fitnessClass = new FitnessClass("PILATES");
-                break;
-            case "SPINNING":
-                fitnessClass = new FitnessClass("SPINNING");
-                break;
-            case "CARDIO":
-                fitnessClass = new FitnessClass("CARDIO");
-                break;
-            default:
-                output.appendText(className + ": invalid fitness class!\n");
-                return null;
-        }
-        return fitnessClass;
-    }
+//    /**
+//     * Determines the fitness class given the name of a fitness class.
+//     * @param className String containing the name of class to find.
+//     * @return FitnessClass object if class is found, null otherwise.
+//     */
+//    private FitnessClass determineClass(String className) {
+//        FitnessClass fitnessClass;
+//        switch (className) {
+//            case "PILATES":
+//                fitnessClass = new FitnessClass("PILATES");
+//                break;
+//            case "SPINNING":
+//                fitnessClass = new FitnessClass("SPINNING");
+//                break;
+//            case "CARDIO":
+//                fitnessClass = new FitnessClass("CARDIO");
+//                break;
+//            default:
+//                output.appendText(className + ": invalid fitness class!\n");
+//                return null;
+//        }
+//        return fitnessClass;
+//    }
 
     /**
      * Initializes fitness classes provided by the provided file.
      */
     private void loadClassSchedule(File fitnessSchedule) {
         classes = new ClassSchedule();
-        try {
-            Scanner fitnessScanner = new Scanner(fitnessSchedule);
-            while (fitnessScanner.hasNextLine()) {
-                String[] line = fitnessScanner.nextLine().split(" ");
-                for (int i = 0; i < line.length - 1; i++) {
-                    String instructor;
-                    Time time;
-                    Location location;
-                    FitnessClass fitnessClass = determineClass(line[i].toUpperCase());
-                    if (fitnessClass == null) return;
-                    instructor = line[i + 1];
-                    time = findTime(line[i + 2]);
-                    location = findLocation(line[i + 3]);
-                    if (location == null) {
-                        output.appendText(location + " - invalid location!\n");
-                        return;
-                    }
-                    fitnessClass.setInstructorName(instructor);
-                    fitnessClass.setTime(time);
-                    fitnessClass.setLocation(location);
-                    classes.addFitnessClass(fitnessClass);
-                    break;
-                }
-            }
-            printFitnessClasses("-Fitness classes loaded-\n");
-        } catch (FileNotFoundException e) {
-            output.appendText("Error: Class schedule file not found.\n");
-        }
+        classes = classes.loadClassSchedule(fitnessSchedule);
+        printFitnessClasses("-Fitness classes loaded-\n");
+//        try {
+//            Scanner fitnessScanner = new Scanner(fitnessSchedule);
+//            while (fitnessScanner.hasNextLine()) {
+//                String[] line = fitnessScanner.nextLine().split(" ");
+//                for (int i = 0; i < line.length - 1; i++) {
+//                    String instructor;
+//                    Time time;
+//                    Location location;
+//                    FitnessClass fitnessClass = determineClass(line[i].toUpperCase());
+//                    if (fitnessClass == null) return;
+//                    instructor = line[i + 1];
+//                    time = findTime(line[i + 2]);
+//                    location = findLocation(line[i + 3]);
+//                    if (location == null) {
+//                        output.appendText(location + " - invalid location!\n");
+//                        return;
+//                    }
+//                    fitnessClass.setInstructorName(instructor);
+//                    fitnessClass.setTime(time);
+//                    fitnessClass.setLocation(location);
+//                    classes.addFitnessClass(fitnessClass);
+//                    break;
+//                }
+//            }
+//            printFitnessClasses("-Fitness classes loaded-\n");
+//        } catch (FileNotFoundException e) {
+//            output.appendText("Error: Class schedule file not found.\n");
+//        }
     }
 
-    /**
-     * Determines the time by being given a time of day, "MORNING", "AFTERNOON", "EVENING".
-     * @param timeOfDay String representing the time of day.
-     * @return Time object of the time of day based on given string.
-     */
-    private Time findTime(String timeOfDay) {
-        timeOfDay = timeOfDay.toUpperCase();
-        Time time = null;
-        switch (timeOfDay) {
-            case "MORNING":
-                time = Time.MORNING;
-                break;
-            case "AFTERNOON":
-                time = Time.AFTERNOON;
-                break;
-            case "EVENING":
-                time = Time.EVENING;
-                break;
-        }
-        return time;
-    }
+//    /**
+//     * Determines the time by being given a time of day, "MORNING", "AFTERNOON", "EVENING".
+//     * @param timeOfDay String representing the time of day.
+//     * @return Time object of the time of day based on given string.
+//     */
+//    private Time findTime(String timeOfDay) {
+//        timeOfDay = timeOfDay.toUpperCase();
+//        Time time = null;
+//        switch (timeOfDay) {
+//            case "MORNING":
+//                time = Time.MORNING;
+//                break;
+//            case "AFTERNOON":
+//                time = Time.AFTERNOON;
+//                break;
+//            case "EVENING":
+//                time = Time.EVENING;
+//                break;
+//        }
+//        return time;
+//    }
 
     /**
      * Continues reading member information from input, then calls for checks to ensure appropriate values for member
