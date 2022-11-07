@@ -100,7 +100,6 @@ public class MemberDatabase {
     public void loadMemberData(File memberList) {
         try {
             Scanner memberScanner = new Scanner(memberList);
-            //output.appendText("-list of members loaded-");
             while (memberScanner.hasNextLine()) {
                 st = new StringTokenizer(memberScanner.nextLine());
                 addMember();
@@ -122,7 +121,6 @@ public class MemberDatabase {
         String locationName = st.nextToken();
         Location location;
 
-        // check for valid date of birth
         if (!validDob(member)) return;
 
         location = findLocation(locationName);

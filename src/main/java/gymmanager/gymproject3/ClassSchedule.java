@@ -30,39 +30,6 @@ public class ClassSchedule {
     }
 
     /**
-     * Searches through the fitness classes in the schedule to find the given fitness class.
-     * @param fitnessClass class to be retrieved.
-     * @return fitnessClass if found, null if not found.
-     */
-    public FitnessClass getFitnessClass(FitnessClass fitnessClass) {
-        for (int i = 0; i < numClasses; i++)
-            if ((classes[i] != null) && (classes[i].equals(fitnessClass))){
-                return classes[i];
-            }
-        return null;
-    }
-
-    /**
-     * Retrieves the schedule of classes.
-     * @return classes array in ClassSchedule.
-     */
-    public FitnessClass[] getClasses() {
-        return classes;
-    }
-
-    /**
-     * Creates String of all fitness classes if there are any classes in the schedule.
-     * @return String of all fitness classes if they exist, or a string saying the schedule is empty if not.
-     */
-    public String printClassSchedule() {
-        if (classes == null) return "Fitness class schedule is empty.";
-        StringBuilder classSchedule = new StringBuilder();
-        for (FitnessClass fitnessClass : classes)
-            if (fitnessClass != null) classSchedule.append(fitnessClass + "\n");
-        return classSchedule.toString();
-    }
-
-    /**
      * Determines the fitness class given the name of a fitness class.
      * @param className String containing the name of class to find.
      * @return FitnessClass object if class is found, null otherwise.
@@ -134,6 +101,11 @@ public class ClassSchedule {
         return location;
     }
 
+    /**
+     * Loads class schedule information from external file.
+     * @param fitnessSchedule file to load class information from.
+     * @return ClassSchedule object with class information from file.
+     */
     public ClassSchedule loadClassSchedule(File fitnessSchedule) {
         ClassSchedule classList = new ClassSchedule();
         try {
@@ -164,7 +136,36 @@ public class ClassSchedule {
         return classList;
     }
 
+    /**
+     * Searches through the fitness classes in the schedule to find the given fitness class.
+     * @param fitnessClass class to be retrieved.
+     * @return fitnessClass if found, null if not found.
+     */
+    public FitnessClass getFitnessClass(FitnessClass fitnessClass) {
+        for (int i = 0; i < numClasses; i++)
+            if ((classes[i] != null) && (classes[i].equals(fitnessClass))){
+                return classes[i];
+            }
+        return null;
+    }
 
+    /**
+     * Retrieves the schedule of classes.
+     * @return classes array in ClassSchedule.
+     */
+    public FitnessClass[] getClasses() {
+        return classes;
+    }
 
-
+    /**
+     * Creates String of all fitness classes if there are any classes in the schedule.
+     * @return String of all fitness classes if they exist, or a string saying the schedule is empty if not.
+     */
+    public String printClassSchedule() {
+        if (classes == null) return "Fitness class schedule is empty.";
+        StringBuilder classSchedule = new StringBuilder();
+        for (FitnessClass fitnessClass : classes)
+            if (fitnessClass != null) classSchedule.append(fitnessClass + "\n");
+        return classSchedule.toString();
+    }
 }
