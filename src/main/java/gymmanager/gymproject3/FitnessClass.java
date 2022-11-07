@@ -68,7 +68,7 @@ public class FitnessClass {
             if (!(member.getLocation().equals(getLocation())))
                 return member.getFname() + " " + member.getLname() + " checking in "
                         + getLocation().name() + ", " + getLocation().getZip() + ", "
-                        + getLocation().getCounty() + " - standard membership location restriction.";
+                        + getLocation().getCounty() + " - standard membership location restriction.\n";
 
         participants[participantSize++] = member;
         return member.getFname() + " " + member.getLname() + " checked in " + this + "\n";

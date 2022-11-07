@@ -183,6 +183,7 @@ public class MemberDatabase {
     /**
      * Prints list of members with the provided header.
      * @param header describes the list that is being printed.
+     * @return a String list of members with the provided header.
      */
     public String print(String header) {
         StringBuilder sb = new StringBuilder();
@@ -198,6 +199,7 @@ public class MemberDatabase {
 
     /**
      * Print list of members in database in without sorting.
+     * @return A String list of members in database in without sorting.
      */
     public String print() {
         return print("list of members");
@@ -205,6 +207,11 @@ public class MemberDatabase {
 
     /**
      * Print list of members with their membership fees
+     */
+
+    /**
+     * Print list of members with their membership fees
+     * @return String list of members with their membership fees
      */
     public String printWithFees() {
         StringBuilder sb = new StringBuilder();
@@ -217,6 +224,7 @@ public class MemberDatabase {
 
     /**
      * Print list sorted by county names then by zipcode.
+     * @return String list sorted by county names then by zipcode.
      */
     public String printByCounty() {
         sortByCounty();
@@ -225,6 +233,7 @@ public class MemberDatabase {
 
     /**
      * Print list sorted by expiration date.
+     * @return String list sorted by expiration date.
      */
     public String printByExpirationDate() {
         sortByExpiration();
@@ -233,6 +242,7 @@ public class MemberDatabase {
 
     /**
      * Print list sorted by last name then by first name.
+     * @return String list sorted by last name then by first name.
      */
     public String printByName() {
         sortByName();

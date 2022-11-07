@@ -38,14 +38,14 @@ public class GymManagerController {
         String firstName = mFirstName.getCharacters().toString().trim();
         String lastName = mLastName.getCharacters().toString().trim();
 
-        Date dob = new Date(mDob.getEditor().getCharacters().toString().trim());
-        if (!validDob(dob)) return;
-
         Location location = findLocation(mLocation.getCharacters().toString().trim());
         if (location == null) {
-            output.appendText(mLocation.getCharacters().toString() + ": invalid location.\n");
+            output.appendText(mLocation.getCharacters().toString() + ": invalid location!\n");
             return;
         }
+
+        Date dob = new Date(mDob.getEditor().getCharacters().toString().trim());
+        if (!validDob(dob)) return;
 
         Member member = null;
         if (mStandardMembershipOption.isSelected()) member = new Member(firstName, lastName, dob, location);
@@ -418,8 +418,10 @@ public class GymManagerController {
         String response = fitnessClass.checkIn(memberFromDb);
         if ((timeConflict && response.contains("already checked in.")) || !timeConflict)
             output.appendText(response);
-        else
+        else {
+            fitnessClass.checkout(memberFromDb);
             output.appendText("Time conflict - " + fitnessClass.printNoParticipants() + "\n");
+        }
     }
 
     /**
@@ -543,7 +545,7 @@ public class GymManagerController {
 
         Location location = findLocation(locationName);
         if (location == null) {
-            output.appendText(locationName + ": invalid location.\n");
+            output.appendText(locationName + " - invalid location.\n");
             return null;
         }
 
