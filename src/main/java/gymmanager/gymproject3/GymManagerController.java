@@ -38,7 +38,7 @@ public class GymManagerController {
         String firstName = mFirstName.getCharacters().toString().trim();
         String lastName = mLastName.getCharacters().toString().trim();
 
-        Location location = findLocation(mLocation.getCharacters().toString().trim());
+        Location location =  Location.findLocation(mLocation.getCharacters().toString().trim());
         if (location == null) {
             output.appendText(mLocation.getCharacters().toString() + ": invalid location!\n");
             return;
@@ -343,33 +343,6 @@ public class GymManagerController {
     }
 
     /**
-     * Determines the home location of a new gym member that is being added to the database
-     * @param locationName String of member's gym location that needs to be found
-     * @return Location object of gym members location, returns null Location if location not found
-     */
-    private Location findLocation(String locationName) {
-        Location location = null;
-        switch (locationName.toUpperCase()) {
-            case "BRIDGEWATER":
-                location = Location.BRIDGEWATER;
-                break;
-            case "EDISON":
-                location = Location.EDISON;
-                break;
-            case "PISCATAWAY":
-                location = Location.PISCATAWAY;
-                break;
-            case "FRANKLIN":
-                location = Location.FRANKLIN;
-                break;
-            case "SOMERVILLE":
-                location = Location.SOMERVILLE;
-                break;
-        }
-        return location;
-    }
-
-    /**
      * Prints out list of fitness classes, instructor name, time, and participants (if any).
      */
     private void printFitnessClasses(String header) {
@@ -543,7 +516,7 @@ public class GymManagerController {
             return null;
         }
 
-        Location location = findLocation(locationName);
+        Location location = Location.findLocation(locationName);
         if (location == null) {
             output.appendText(locationName + " - invalid location.\n");
             return null;

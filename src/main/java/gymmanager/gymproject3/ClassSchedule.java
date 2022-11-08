@@ -75,33 +75,6 @@ public class ClassSchedule {
     }
 
     /**
-     * Determines the home location of a new gym member that is being added to the database
-     * @param locationName String of member's gym location that needs to be found
-     * @return Location object of gym members location, returns null Location if location not found
-     */
-    private Location findLocation(String locationName) {
-        Location location = null;
-        switch (locationName.toUpperCase()) {
-            case "BRIDGEWATER":
-                location = Location.BRIDGEWATER;
-                break;
-            case "EDISON":
-                location = Location.EDISON;
-                break;
-            case "PISCATAWAY":
-                location = Location.PISCATAWAY;
-                break;
-            case "FRANKLIN":
-                location = Location.FRANKLIN;
-                break;
-            case "SOMERVILLE":
-                location = Location.SOMERVILLE;
-                break;
-        }
-        return location;
-    }
-
-    /**
      * Loads class schedule information from external file.
      * @param fitnessSchedule file to load class information from.
      * @return ClassSchedule object with class information from file.
@@ -120,7 +93,7 @@ public class ClassSchedule {
                     if (fitnessClass == null) return null;
                     instructor = line[i + 1];
                     time = findTime(line[i + 2]);
-                    location = findLocation(line[i + 3]);
+                    location = Location.findLocation(line[i + 3]);
                     if (location == null) {
                         return null;
                     }

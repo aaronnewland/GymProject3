@@ -123,7 +123,7 @@ public class MemberDatabase {
 
         if (!validDob(member)) return;
 
-        location = findLocation(locationName);
+        location = Location.findLocation(locationName);
         if (location == null) {
             return;
         }
@@ -151,33 +151,6 @@ public class MemberDatabase {
             return false;
         }
         return true;
-    }
-
-    /**
-     * Determines the home location of a new gym member that is being added to the database
-     * @param locationName String of member's gym location that needs to be found
-     * @return Location object of gym members location, returns null Location if location not found
-     */
-    private Location findLocation(String locationName) {
-        Location location = null;
-        switch (locationName.toUpperCase()) {
-            case "BRIDGEWATER":
-                location = Location.BRIDGEWATER;
-                break;
-            case "EDISON":
-                location = Location.EDISON;
-                break;
-            case "PISCATAWAY":
-                location = Location.PISCATAWAY;
-                break;
-            case "FRANKLIN":
-                location = Location.FRANKLIN;
-                break;
-            case "SOMERVILLE":
-                location = Location.SOMERVILLE;
-                break;
-        }
-        return location;
     }
 
     /**
