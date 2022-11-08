@@ -48,7 +48,6 @@ public class MemberDatabase {
     public Member getMemberFromDb(Member member) {
         int memberIndex = find(member);
         if (memberIndex != Constants.NOT_FOUND) return mlist[memberIndex];
-        System.out.println(member.getFname() + " " + member.getLname() + " " + member.getDob() + " is not in the database.");
         return null;
     }
 
